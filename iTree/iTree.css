@@ -1,0 +1,49 @@
+.itree_root{
+    font-size: 14px;
+}
+.itree_root li{
+    list-style: none;
+}
+.itree_root *{
+    vertical-align: middle;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    cursor: default;
+}
+.itree_root ul {
+    padding-left: 17px;
+    display: none;
+    white-space: nowrap;
+}
+.itree_root li.spreading > ul {
+    display: block;
+}
+.itree_root > ul {
+    display: block;
+}
+.itree_root i { /*三角图标*/
+    display: inline-block;
+    width: 0;
+    height: 0;
+    font-size: 0;
+    border-left: 7px solid #333;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    border-right: 5px solid transparent;
+    margin-right: 5px;
+}
+.itree_root li.spreading > i { /*展开后的三角图标*/
+    border-top: 7px solid #333;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: none;
+    margin-right: 5px;
+}
+.itree_root li > a{ /*节点文本*/
+
+}
+.itree_root li.selected > a {
+    background-color: #C2DCFC;
+}

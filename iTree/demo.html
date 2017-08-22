@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>iTree Demo</title>
+    <script src="jquery.js"></script>
+    <script src="iTree.js"></script>
+    <link href="iTree.css" rel="stylesheet" />
+    <style>
+        div{
+            float: left;
+            width: 300px;
+            height: 500px;
+
+            border: 1px solid gray;
+        }
+        body,html{
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<div id="origin" ></div>
+<div id="target" ></div>
+
+<button id="toggle_btn">toggle</button>
+<button id="tree_btn">getTree</button>
+<button id="list_btn">getList</button>
+
+<script>
+    (function(){
+
+        var origin = $("#origin");
+        var target = $("#target");
+
+        $("#toggle_btn").click(function(){
+            tree.toggle();
+        });
+        $("#tree_btn").click(function(){
+            alert(inspect(tree.getSelectedTree()));
+        });
+        $("#list_btn").click(function(){
+            alert(inspect(tree.getSelectedList()));
+        });
+
+        var tree = iTree.create(origin, target, [
+            {
+                name: "1111",
+                children: [
+                    {
+                        name: "1111-2222",
+                        data: {name: "1111-2222"}
+                    },
+                    {
+                        name: "1111-3333",
+                        data: {name: "1111-3333"}
+                    },
+                    {
+                        name: "1111-4444",
+                        data: {name: "1111-4444"}
+                    }
+                ],
+                data: {name: "1111"}
+            },
+            {
+                name: "2222",
+                children: [
+                    {
+                        name: "2222-1111",
+                        data: {name: "2222-1111"}
+                    }
+                ],
+                data: {name: "2222"}
+            },
+            {
+                name: "3333",
+                data: {name: "3333"}
+            },
+            {
+                name: "4444",
+                data: {name: "4444"}
+            },
+            {
+                name: "5555",
+                data: {name: "5555"}
+            }
+        ], function(data){
+            var base = ~~data[data.name.length - 1] + 1;
+            var name = base + "";
+            var result = [];
+            name += name;
+            name += name;
+            name = data.name + "-" + name;
+            result.push({
+                name: name,
+                data: {name: name}
+            });
+            name = base + 1 + "";
+            name += name;
+            name += name;
+            name = data.name + "-" + name;
+            result.push({
+                name: name,
+                data: {name: name}
+            });
+            return result;
+        });
+
+
+
+        function inspect(obj, space){
+            if(!space) space = "";
+            var s = "";
+            for (var ss in obj) {
+                if(obj[ss] && obj[ss].constructor === Object)
+                    s += space + ss + ": {\n" + inspect(obj[ss], space + "  ") + space + "}\n";
+                else if(obj[ss] && obj[ss].constructor === Array)
+                    s += space + ss + ": [\n" + inspect(obj[ss], space + "  ") + space + "]\n";
+                else
+                    s += space + ss + ": " + obj[ss] + "\n";
+            }
+            return s;
+        }
+    })();
+</script>
+
+</body>
+</html>
