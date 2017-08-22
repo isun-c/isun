@@ -28,10 +28,10 @@ loader: function(data, node) 在动态加载时调用，加载依据此函数返
 iTree.create 返回一个如下结构的对象，通过此对象可以执行相关的操作
 ```js
 {
-    toggle: function()  交换选中节点,
-    setLoader: function(loader)  设置动态加载函数,
-    getSelectedTree: function() 获取 target 元素中的节点的附加数据组成的树形结构数据,
-    getSelectedList: function() 获取 target 元素中的节点的附加数据组成的数组结构数据
+    toggle: function()  //交换选中节点,
+    setLoader: function(loader)  //设置动态加载函数,
+    getSelectedTree: function() //获取 target 元素中的节点的附加数据组成的树形结构数据,
+    getSelectedList: function() //获取 target 元素中的节点的附加数据组成的数组结构数据
 }
 ```
 
@@ -61,7 +61,9 @@ tree.toggle()
 
 
 ## Tip
+
 jquery需要在iTree.js之前导入
+
 节点选择操作支持 ctrl 和 shift 辅助多选
 
 
