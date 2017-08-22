@@ -1,15 +1,16 @@
 
 
 
-#构建
+##构建
 
 iTree.create(origin, target, data, loader)
 
-origin: HTMLElement  
-target: HTMLElement  
-origin和target都是DOM元素（也可以是jquery封装过的），初始时节点会被加载到origin内  
+origin: HTMLElement
+target: HTMLElement
+origin和target都是DOM元素（也可以是jquery封装过的），初始时节点会被加载到origin内
 
 data: Object 初始化节点需要的数据，结构为：
+```js
 {
     name: String 节点名称,
     children: Array 子节点集合,
@@ -23,6 +24,7 @@ loader: function(data, node) 在动态加载时调用，加载依据此函数返
 
 
 iTree.create 返回一个如下结构的对象，通过此对象可以执行相关的操作
+```js
 {
     toggle: function()  交换选中节点,
     setLoader: function(loader)  设置动态加载函数,
@@ -31,8 +33,8 @@ iTree.create 返回一个如下结构的对象，通过此对象可以执行相�
 }
 
 
-#示例
-
+##示例
+```js
 var tree = iTree.create(origin, target, [
     {
         name: "1111",
@@ -50,12 +52,13 @@ var tree = iTree.create(origin, target, [
 });
 
 将选中的节点在指定的两个元素（origin, target）间交换
+```js
 tree.toggle()
 
 
 
 
-#Tip
+##Tip
 jquery需要在iTree.js之前导入
 节点选择操作支持 ctrl 和 shift 辅助多选
 
