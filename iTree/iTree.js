@@ -1,16 +1,4 @@
 
-// var node_data = {
-//     name: "",
-//     children: [],
-//     data: {},
-//     loaded: false
-// };
-//
-// function load(launcher, data, nodeid)
-// function loader(node_data, node)
-
-
-/////////////////////////////////////////////
 
 var iTree = {};
 
@@ -22,8 +10,6 @@ var iTree = {};
 
         if(!root_origin || !root_target || !initData)
             return null;
-
-
 
         $(root_origin).html("").append("<ul/>").addClass("itree_root");
         $(root_target).html("").append("<ul/>").addClass("itree_root");
@@ -129,7 +115,6 @@ var iTree = {};
             }
             if(index >= 0)
                 selectedNodes.splice(index, 1);
-            // selectedNodes.removeObj(node);
         }
 
         //被点击的元素是节点下的 a 标签
