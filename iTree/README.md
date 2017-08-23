@@ -4,9 +4,10 @@
 ## 构建
 
 iTree.create(origin, target, data, loader)
-
+```js
 origin: HTMLElement
 target: HTMLElement
+```
 origin和target都是DOM元素（也可以是jquery封装过的），初始时节点会被加载到origin内
 
 data: Object 初始化节点需要的数据，结构为：
