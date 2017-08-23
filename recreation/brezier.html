@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            -ms-user-select: none;
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            user-select: none;
+            font-size: 10px;
+        }
+        html,body{
+            height: 100%;
+        }
+        body,p{
+            margin: 0;
+        }
+        div{
+            height: 1px;
+            position: absolute;
+            transform-origin: left center;
+            color: white;
+            text-align: center;
+        }
+        p{
+            width: 8px;
+            height: 8px;
+            border-radius: 4px;
+            position: absolute;
+            font-size: 0;
+            z-index: 5;
+        }
+        p.fixed{
+            background-color: red;
+        }
+
+        .line{
+            position: absolute;
+            display: block;
+            transform-origin: left center;
+            height: 1px;
+            z-index: 4;
+        }
+        .line.fixed{
+            background-color: red;
+        }
+        .line.track{
+            height: 2px;
+            background-color: #900;
+        }
+
+        #origin, #end{
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            box-sizing: border-box;
+            z-index: 6;
+        }
+        #origin{
+            background-color: red;
+            left: 100px;
+            top: 400px;
+        }
+        #end{
+            border: 2px solid red;
+            background-color: white;
+            top: 100px;
+            left: 700px;
+        }
+    </style>
+    <script src="js/jquery.js"></script>
+</head>
+<body>
+<div id="control">
+    <button class="play">播放</button>
+    <button class="stop">停止</button><br/>
+</div>
+<div style="font-size: 14px; top: 30px; color: black;">双击空白区域添加一个节点，可以拖动节点</div>
+<div id="origin"></div>
+<div id="end"></div>
+
+<script>
+    !function(){
+
+        var control = $("#control");
+
+        var origin = $("#origin");
+        var end = $("#end");
+
+        drag(origin[0], null, {move: refresh_fixedLine});
+        drag(end[0], null, {move: refresh_fixedLine});
+
+        var points = [origin[0], end[0]];
+        var lines = [$("<span/>").addClass("line").addClass("fixed")[0]];
+        document.body.appendChild(lines[0]);
+
+        var a_points = [];
+
+        var a_lines = [];
+
+        refresh_fixedLine();
+
+        document.body.ondblclick = function(e){
+            points.push(end[0]);
+            points[points.length - 2] = addPoint(e.clientX, e.clientY);
+            var line = $("<span/>").addClass("line").addClass("fixed")[0];
+            document.body.appendChild(line);
+            lines.push(line);
+            refresh_fixedLine();
+        };
+
+        var play_interval = null;
+        control.find(".play").click(function(){
+            if(play_interval){
+                return;
+            }
+
+            //生成动点集合
+            var aglen = points.length - 1;
+            for(var i = 0; i < aglen; i++){
+                var group = a_points[i] = [];
+                var alen = aglen - i;
+                var color = alen == 1 ? "#900" : "#00" + (((i + 1) * 50) % 255).toString(16) + ((25450 - i * 50) % 255).toString(16);
+                for(var j = 0; j < alen; j++){
+                    group.push($("<p/>").css({
+                        "background-color": color
+                    }).appendTo(document.body)[0]);
+                }
+            }
+
+            //生成动线集合
+            for(i = 0; i < a_points.length - 1; i++){
+                group = a_lines[i] = [];
+                alen = a_points[i].length - 1;
+                color = a_points[i][0].style.backgroundColor;
+                for(j = 0; j < alen; j++){
+                    group.push($("<span/>").addClass("line").css({
+                        "background-color": color
+                    }).appendTo(document.body)[0]);
+                }
+            }
+
+            var trackPoint = a_points[a_points.length - 1][0];
+            var ptp = {x: origin[0].offsetLeft + 6, y: origin[0].offsetTop + 6};
+            var progress = 0;
+            play_interval = setInterval(function(){
+                reDraw(progress);
+                var ctp = {x: trackPoint.offsetLeft + 4, y: trackPoint.offsetTop + 4};
+                draw_line(ptp, ctp, $("<span class='line track'/>").appendTo(document.body));
+                ptp = ctp;
+                progress += 0.01;
+                if(progress >= 1){
+                    progress = 0;
+                    $(".line.track").remove();
+                    ptp = {x: origin[0].offsetLeft + 6, y: origin[0].offsetTop + 6};
+                }
+            }, 30);
+
+        });
+        control.find(".stop").click(function(){
+            if(play_interval){
+                clearInterval(play_interval);
+                play_interval = null;
+            }
+            $(a_points).each(function(){
+                $(this).remove();
+            });
+            $(a_lines).each(function(){
+                $(this).remove();
+            });
+            $(".line.track").remove();
+            a_points = [];
+            a_lines = [];
+        });
+
+
+
+        ////////function define////////////////////////////
+
+        var reDraw;
+        !function(){
+            /**
+             * @param progress 进度百分比 0 ~ 1
+             */
+            reDraw = function(progress){
+                for(var j = 0; j < a_points.length; j++){
+                    $(a_points[0][j]).css({
+                        left: points[j].offsetLeft * (1 - progress) + points[j + 1].offsetLeft * progress + (points[j].offsetWidth - a_points[j][0].offsetWidth) / 2 + "px",
+                        top: points[j].offsetTop * (1 - progress) + points[j + 1].offsetTop * progress + (points[j].offsetHeight - a_points[j][0].offsetHeight) / 2 +"px"
+                    });
+                }
+//                for(var i = 1; i < a_points.length; i++){
+//                    try{
+//                        for(j = 0; j < a_points.length; j++){
+//                            $(a_points[j][i]).css({
+//                                left: a_points[i - 1][j].offsetLeft * (1 - progress) + a_points[i - 1][j + 1].offsetLeft * progress + "px",
+//                                top: a_points[i - 1][j].offsetTop * (1 - progress) + a_points[i - 1][j + 1].offsetTop * progress + "px"
+//                            });
+//                        }
+//                    }catch(e){}
+//                }
+                for(var i = 1; i < a_points.length; i++){
+                    var pre_layer = a_points[i-1];
+                    var cur_layer = a_points[i];
+                    for(j = 0; j < cur_layer.length; j++){
+                        $(cur_layer[j]).css({
+                            left: pre_layer[j].offsetLeft * (1 - progress) + pre_layer[j+1].offsetLeft * progress + "px",
+                            top: pre_layer[j].offsetTop * (1 - progress) + pre_layer[j+1].offsetTop * progress + "px"
+                        });
+                    }
+                }
+                for(i = 0; i < a_points.length; i++){
+                    cur_layer = a_points[i];
+                    for(j = 1; j < cur_layer.length; j++){
+                        draw_line({x: cur_layer[j-1].offsetLeft + 4, y: cur_layer[j-1].offsetTop + 4}, {x: cur_layer[j].offsetLeft + 4, y: cur_layer[j].offsetTop + 4}, a_lines[i][j-1]);
+                    }
+                }
+            };
+        }();
+
+        function refresh_fixedLine(){
+            var ps = points;
+            if(ps.length == 2){
+                draw_line({x: origin[0].offsetLeft + 6, y: origin[0].offsetTop + 6}, {x: end[0].offsetLeft + 6, y: end[0].offsetTop + 6}, lines[0]);
+                return;
+            }
+            for(var i = 0; i < ps.length - 1; i++){
+                var cur = ps[i];
+                var next = ps[i + 1];
+                draw_line({x: cur.offsetLeft + cur.offsetWidth / 2, y: cur.offsetTop + cur.offsetHeight / 2},{x: next.offsetLeft + next.offsetWidth / 2, y: next.offsetTop + next.offsetHeight / 2}, lines[i]);
+            }
+
+            for(++i; i < lines.length; i++){
+                lines[i].style.left = "-1000px";
+                lines[i].style.top = "-1000px";
+            }
+        }
+
+        var addPoint;
+        !function(){
+            var index = 0;
+            addPoint = function(x, y){
+                index++;
+                var p = $("<p/>").html(index).css({
+                    left: x + "px",
+                    top: y + "px"
+                }).addClass("fixed");
+                p.appendTo(document.body);
+                drag(p[0], null, {move: refresh_fixedLine});
+                return p[0];
+            };
+        }();
+
+        function draw_line(p1, p2, line){
+//            line || (line = $("<span/>")).css({
+//                position: "absolute",
+//                "transform-origin": "left center"
+//            });
+
+            line || (line = $("<span/>").addClass("line"));
+            line = $(line);
+
+//            console.log(p1.x + "," + p1.y + "   " + p2.x + "," + p2.y);
+
+            var len = Math.sqrt(Math.pow(p1.x - p2.x ,2) + Math.pow(p1.y - p2.y ,2));
+            var sign = Math.asin((p2.y - p1.y) / len);
+            if(sign){
+                sign /= Math.abs(sign);
+            }else{
+                if(p1.x < p2.x) {
+                    sign = 1;
+                }else{
+                    sign = -1;
+                }
+            }
+            var rad = Math.acos((p2.x - p1.x) / len);
+            rad *= sign;
+
+            line.css({
+                left: p1.x + "px",
+                top: p1.y + "px",
+                transform: "rotate(" + rad + "rad)",
+                width: len + "px"
+            });
+            return line;
+        }
+
+        /**
+         * @param target
+         * @param act
+         * @param callback {down: function, move: function, up: function}
+         */
+        function drag(target, act, callback){
+            act || (act = target);
+            var attachMethod = act.addEventListener ? function(el, type, fn){
+                el.addEventListener(type, fn);
+            } : function(el, type, fn){
+                el.attachEvent("on" + type, fn);
+            };
+            var removeMethod = act.removeEventListener ? function(el, type, fn){
+                el.removeEventListener(type, fn);
+            } : function(el, type, fn){
+                el.detachEvent("on" + type, fn);
+            };
+
+            var styler = target.currentStyle || window.getComputedStyle(target, null);
+
+            var ox, oy;
+            var tox, toy;
+
+            var html = document.documentElement;
+
+            attachMethod(act, "mousedown", down);
+
+            function down(e){
+                e || (e = event);
+                ox = e.screenX;
+                oy = e.screenY;
+                tox = parseInt(styler["left"]) || 0;
+                toy = parseInt(styler["top"]) || 0;
+
+                attachMethod(html, "mousemove", move);
+                attachMethod(html, "mouseup", up);
+
+                if(callback && callback.down)
+                    callback.down();
+            }
+            function move(e){
+                e || (e = event);
+                var dx = e.screenX - ox, dy = e.screenY - oy;
+                target.style["left"] = tox + dx + "px";
+                target.style["top"] = toy + dy + "px";
+                if(callback && callback.move)
+                    callback.move();
+            }
+            function up(e){
+                removeMethod(html, "mousemove", move);
+                removeMethod(html, "mouseup", up);
+                if(callback && callback.up)
+                    callback.up();
+            }
+        }
+    }();
+</script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body{
+            margin: 0;
+        }
+        .dot{
+            display: block;
+            width: 30px;
+            height: 30px;
+            background: #ffa500;
+            border-radius: 50%;
+        }
+    </style>
+    <script src="js/config.js" ></script>
+</head>
+<body>
+<i class="dot"></i>
+
+<script>
+    !function(){
+        var move;
+        var interval = null;
+        !function(){
+            var Math = window.Math;
+            var dot = $(".dot");
+
+            var ps = [];
+
+            var index = 0;
+
+            var pre = null;
+
+            move = function(plist){
+                if(!plist)
+                    return;
+
+
+                if(ps.length == 0){
+                    if(plist.constructor == Array){
+                        ps.push(plist);
+                    }else{
+                        ps.push([]);
+                        ps[0].push(plist);
+                    }
+
+                    pre = ps[0][0];
+
+                    interval = setInterval(function(){
+                        var thi = ps[0][index];
+
+                        dot.style.transform = "translate(" + thi.x + "px, " + thi.y + "px) scale(" + 100 / (Math.sqrt(Math.pow(pre.x - thi.x, 2) + Math.pow(pre.y - thi.y, 2)) + 100) + ")";
+
+                        pre = thi;
+
+                        index ++;
+                        if(!ps[0][index]){
+                            ps.splice(0,1);
+                            index = 0;
+                            if(!ps[0]){
+                                clearInterval(interval);
+                                interval = null;
+                                dot.style.transform = "translate(" + pre.x + "px, " + pre.y + "px) scale(1)";
+                                pre = null;
+                            }
+                        }
+                    }, 12);
+                }else{
+                    if(plist.constructor == Array){
+                        ps.push(plist);
+                    }else{
+                        ps[ps.length - 1].push(plist);
+                    }
+                }
+
+            };
+        }();
+
+        !function(){
+            var track = [];
+            var time = 0;
+            function record(e){
+                if(interval){
+                    move({x: e.clientX, y: e.clientY});
+                }else{
+                    track.push({x: e.clientX, y: e.clientY});
+                }
+            }
+
+
+            document.documentElement.onmousedown = function(e){
+                record(e);
+                this.onmousemove = record;
+            };
+            document.documentElement.onmouseup = function(){
+                this.onmousemove = null;
+                if(track.length > 0){
+                    move(track);
+                    track = [];
+                }
+            };
+
+        }();
+    }();
+</script>
+</body>
+</html>
