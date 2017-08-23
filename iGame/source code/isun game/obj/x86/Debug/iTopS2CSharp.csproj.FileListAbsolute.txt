@@ -1,0 +1,20 @@
+D:\Studies\C#二\VS\iTopS2CSharp\iTopS2CSharp\bin\Debug\iTopS2CSharp.exe
+D:\Studies\C#二\VS\iTopS2CSharp\iTopS2CSharp\bin\Debug\iTopS2CSharp.pdb
+D:\Studies\C#二\VS\iTopS2CSharp\iTopS2CSharp\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\Studies\C#二\VS\iTopS2CSharp\iTopS2CSharp\obj\x86\Debug\iTopS2CSharp.Main.resources
+D:\Studies\C#二\VS\iTopS2CSharp\iTopS2CSharp\obj\x86\Debug\iTopS2CSharp.Properties.Resources.resources
+D:\Studies\C#二\VS\iTopS2CSharp\iTopS2CSharp\obj\x86\Debug\GenerateResource.read.1.tlog
+D:\Studies\C#二\VS\iTopS2CSharp\iTopS2CSharp\obj\x86\Debug\GenerateResource.write.1.tlog
+D:\Studies\C#二\VS\iTopS2CSharp\iTopS2CSharp\obj\x86\Debug\iTopS2CSharp.exe
+D:\Studies\C#二\VS\iTopS2CSharp\iTopS2CSharp\obj\x86\Debug\iTopS2CSharp.pdb
+G:\Studies\C#二\VS\iTopS2CSharp\iTopS2CSharp\obj\x86\Debug\iTopS2CSharp.exe
+G:\Studies\C#二\VS\iTopS2CSharp\iTopS2CSharp\obj\x86\Debug\iTopS2CSharp.pdb
+G:\Studies\C#二\VS\iTopS2CSharp\iTopS2CSharp\bin\Debug\iTopS2CSharp.exe
+G:\Studies\C#二\VS\iTopS2CSharp\iTopS2CSharp\bin\Debug\iTopS2CSharp.pdb
+G:\Studies\C#二\VS\iTopS2CSharp\iTopS2CSharp\obj\x86\Debug\ResolveAssemblyReference.cache
+G:\Studies\C#二\VS\iTopS2CSharp\iTopS2CSharp\obj\x86\Debug\iTopS2CSharp.Main.resources
+G:\Studies\C#二\VS\iTopS2CSharp\iTopS2CSharp\obj\x86\Debug\iTopS2CSharp.Properties.Resources.resources
+G:\Studies\C#二\VS\iTopS2CSharp\iTopS2CSharp\obj\x86\Debug\GenerateResource.read.1.tlog
+G:\Studies\C#二\VS\iTopS2CSharp\iTopS2CSharp\obj\x86\Debug\GenerateResource.write.1.tlog
+G:\My Studio\others\isun game\iTopS2CSharp\obj\x86\Debug\iTopS2CSharp.exe
+G:\My Studio\others\isun game\iTopS2CSharp\obj\x86\Debug\iTopS2CSharp.pdb
