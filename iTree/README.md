@@ -38,19 +38,20 @@ iTree.create 返回一个如下结构的对象，通过此对象可以执行相�
 ## 示例
 ```js
 var tree = iTree.create(origin, target, [
-    {
-        name: "1111",
-        children: [
-            {
-                name: "1111-2222",
-            }
-        data: {fruit: "orange", other: "balabala"}
-    },
-    {
-        name: "2222",
-    }
+	{
+		name: "1111",
+		children: [
+			{
+				name: "1111-2222"
+			}
+		],
+		data: {fruit: "orange", other: "balabala"}
+	},
+	{
+		name: "2222"
+	}
 ], function(data, node){    //对于没有加载过的节点，点击展开后，都会加载一个名为 "apple" 的节点
-    return {name: "apple"}
+	return [{name: "apple"}];
 });
 ```
 将选中的节点在指定的两个元素（origin, target）间交换
