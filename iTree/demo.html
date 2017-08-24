@@ -46,65 +46,56 @@
 
         var tree = iTree.create(origin, target, [
             {
-                name: "1111",
+                name: "节点1",
                 children: [
                     {
-                        name: "1111-2222",
-                        data: {name: "1111-2222"}
+                        name: "节点1-2",
+                        data: {name: "节点1-2"}
                     },
                     {
-                        name: "1111-3333",
-                        data: {name: "1111-3333"}
+                        name: "节点1-3",
+                        data: {name: "节点1-3"}
                     },
                     {
-                        name: "1111-4444",
-                        data: {name: "1111-4444"}
+                        name: "节点1-4",
+                        data: {name: "节点1-4"}
                     }
                 ],
-                data: {name: "1111"}
+                data: {name: "节点1"}
             },
             {
-                name: "2222",
+                name: "节点2",
                 children: [
                     {
-                        name: "2222-1111",
-                        data: {name: "2222-1111"}
+                        name: "节点2-1",
+                        data: {name: "节点2-1"}
                     }
                 ],
-                data: {name: "2222"}
+                data: {name: "节点2"}
             },
             {
-                name: "3333",
-                data: {name: "3333"}
+                name: "节点3",
+                data: {name: "节点3"}
             },
             {
-                name: "4444",
-                data: {name: "4444"}
+                name: "节点4",
+                data: {name: "节点4"}
             },
             {
-                name: "5555",
-                data: {name: "5555"}
+                name: "节点5",
+                data: {name: "节点5"}
             }
         ], function(data){
-            var base = ~~data[data.name.length - 1] + 1;
-            var name = base + "";
-            var result = [];
-            name += name;
-            name += name;
-            name = data.name + "-" + name;
-            result.push({
-                name: name,
-                data: {name: name}
-            });
-            name = base + 1 + "";
-            name += name;
-            name += name;
-            name = data.name + "-" + name;
-            result.push({
-                name: name,
-                data: {name: name}
-            });
-            return result;
+			return [
+				{
+					name: data.name + "-1",
+					data: {name: data.name + "-1"}
+				},
+				{
+					name: data.name + "-2",
+					data: {name: data.name + "-2"}
+				}
+			];
         });
 
 
