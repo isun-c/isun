@@ -24,7 +24,7 @@ loader: function(data, node, load) 在动态加载时调用，加载依据此函
 ```js
     data: Object 此节点的附加数据
     node: HTMLElement 执行加载的节点
-	load: function(data) 加载节点的函数。将加载节点所需的数据返回或调用此函数传入效果相同，但如果loader中需要异步加载则只能调用此函数
+    load: function(data) 加载节点的函数。将加载节点所需的数据返回或调用此函数传入效果相同，但如果loader中需要异步加载则只能调用此函数
 ```
 
 iTree.create 返回一个如下结构的对象，通过此对象可以执行相关的操作
