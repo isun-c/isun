@@ -49,16 +49,16 @@
                 name: "节点1",
                 children: [
                     {
+                        name: "节点1-1",
+                        data: {name: "节点1-1"}
+                    },
+                    {
                         name: "节点1-2",
                         data: {name: "节点1-2"}
                     },
                     {
                         name: "节点1-3",
                         data: {name: "节点1-3"}
-                    },
-                    {
-                        name: "节点1-4",
-                        data: {name: "节点1-4"}
                     }
                 ],
                 data: {name: "节点1"}
@@ -85,8 +85,8 @@
                 name: "节点5",
                 data: {name: "节点5"}
             }
-        ], function(data){
-			return [
+        ], function(data, node, load){
+			load([
 				{
 					name: data.name + "-1",
 					data: {name: data.name + "-1"}
@@ -95,7 +95,7 @@
 					name: data.name + "-2",
 					data: {name: data.name + "-2"}
 				}
-			];
+			]);
         });
 
 

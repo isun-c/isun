@@ -20,10 +20,11 @@ data: Object 初始化节点需要的数据，结构为：
 }
 ```
 
-loader: function(data, node) 在动态加载时调用，加载依据此函数返回的数据，结构同 iTree.create 参数中的 data
+loader: function(data, node, load) 在动态加载时调用，加载依据此函数返回的数据，结构同 iTree.create 参数中的 data
 ```js
     data: Object 此节点的附加数据
     node: HTMLElement 执行加载的节点
+	load: function(data) 加载节点的函数。将加载节点所需的数据返回或调用此函数传入效果相同，但如果loader中需要异步加载则只能调用此函数
 ```
 
 iTree.create 返回一个如下结构的对象，通过此对象可以执行相关的操作
@@ -51,7 +52,8 @@ var tree = iTree.create(origin, target, [
 	{
 		name: "2222"
 	}
-], function(data, node){    //对于没有加载过的节点，点击展开后，都会加载一个名为 "apple" 的节点
+], function(data, node, load){    //对于没有加载过的节点，点击展开后，都会加载一个名为 "apple" 的节点
+	//load([{name: "apple"}]);	//与将数据返回效果相同
 	return [{name: "apple"}];
 });
 ```

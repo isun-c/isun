@@ -170,7 +170,9 @@ var iTree = {};
             }
             var node = $(this).parent()[0];
             if(tree.loader){
-                load(node, tree.loader(node.data, node));
+				var loadData = tree.loader(node.data, node, function(data){load(node, data)});
+				if(loadData)
+					load(node, loadData);
             }
         }
 
