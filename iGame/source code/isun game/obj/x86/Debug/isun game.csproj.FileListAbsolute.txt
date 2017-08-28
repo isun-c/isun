@@ -1,9 +1,0 @@
-G:\My Studio\others\isun game\obj\x86\Debug\ResolveAssemblyReference.cache
-G:\My Studio\others\isun game\obj\x86\Debug\iTopS2CSharp.Main.resources
-G:\My Studio\others\isun game\obj\x86\Debug\GenerateResource.read.1.tlog
-G:\My Studio\others\isun game\obj\x86\Debug\GenerateResource.write.1.tlog
-G:\My Studio\others\isun game\bin\Debug\isun game.exe
-G:\My Studio\others\isun game\bin\Debug\isun game.pdb
-G:\My Studio\others\isun game\obj\x86\Debug\isunGame.Properties.Resources.resources
-G:\My Studio\others\isun game\obj\x86\Debug\isun game.exe
-G:\My Studio\others\isun game\obj\x86\Debug\isun game.pdb
