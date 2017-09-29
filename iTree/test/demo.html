@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>iTree Demo</title>
     <script src="require/jquery.js"></script>
-    <script src="iTree.js"></script>
+    <script src="iTree.min.js"></script>
     <link href="iTree.css" rel="stylesheet" />
     <style>
         div{
@@ -41,7 +41,7 @@
             alert(inspect(tree.getSelectedTree()));
         });
         $("#list_btn").click(function(){
-            alert(inspect(tree.getSelectedList()));
+            alert(inspect(tree.getSelectedList().map(function(v){delete v.children; return v;})));
         });
 
         var tree = iTree.create(origin, target, [

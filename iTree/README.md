@@ -1,7 +1,10 @@
 
+## 介绍
+当你需要让用户在一组树形结构的数据中选择一项或多项时，iTree可以提供直观的数据呈现并提供方便的选择操作。
 
 
-## 构建
+
+### 构建
 
 iTree.create(origin, target, data, loader)
 ```js
