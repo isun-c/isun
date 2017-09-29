@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="js/jquery.js"></script>
+    <style>
+        html{
+            height: 100%;
+        }
+        body{
+            min-height: 100%;
+            overflow: hidden;
+            margin: 0;
+            padding: 200px;
+        }
+        *{
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+        #out{
+            transform-style: preserve-3d;
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: auto;
+            /*transform-origin: 0 0;*/
+            /*transform-origin-z: 0;*/
+        }
+        #out .face{
+            width: 150px;
+            height: 150px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0.8;
+        }
+        .f1{
+            transform: translateZ(75px);
+            background-color: orange;
+        }
+        .f2{
+            transform: rotateY(90deg) translateZ(75px);
+            background-color: pink
+        }
+        .f3{
+            transform: rotateY(180deg) translateZ(75px);
+            background-color: lightblue;
+        }
+        .f4{
+            transform: rotateY(270deg) translateZ(75px);
+            background-color: yellow;
+        }
+        .f5{
+            transform: rotateX(-90deg) translateZ(75px);
+            background-color: red;
+        }
+        .f6{
+            transform: rotateX(90deg) translateZ(75px);
+            background-color: blue;
+        }
+    </style>
+</head>
+<body>
+<div id="out">
+    <div class="face f1"></div>
+    <div class="face f2"></div>
+    <div class="face f3"></div>
+    <div class="face f4"></div>
+    <div class="face f5"></div>
+    <div class="face f6"></div>
+</div>
+<script>
+    (function(){
+        var basePoint;
+        var rotate = [0, 0];
+        var out = $('#out');
+        $(document.body).on("mousedown", function(e){
+            basePoint = [e.pageX, e.pageY];
+            $(this).on("mousemove", move);
+        }).on("mouseup", function(){
+            $(this).off("mousemove");
+        });
+        function move(e){
+            var dx = e.pageX - basePoint[0];
+            var dy = e.pageY - basePoint[1];
+            basePoint = [e.pageX, e.pageY];
+            rotate[0] += dx / 2;
+            rotate[1] -= dy / 2;
+            out.css({
+                transform: "rotateY(" + rotate[0] + "deg) rotateX(" + rotate[1] + "deg)"
+//                transform: "rotateX(" + rotate[1] + "deg) rotateY(" + rotate[0] + "deg)"
+            });
+        }
+    })();
+</script>
+</body>
+</html>
