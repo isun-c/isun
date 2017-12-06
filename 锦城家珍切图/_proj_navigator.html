@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>锦城家珍 前端页面导航</title>
+    <style>
+        li{
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li><a href="index.html"></a></li>
+        <li><a href="remark.html"></a></li>
+        <li><a href="sort.html"></a></li>
+        <li><a href="sync_note.html"></a></li>
+        <li><a href="display.html"></a></li>
+        <li><a href="info.html"></a></li>
+        <li><a href="bind_phone.html"></a></li>
+        <li><a href="change_pwd.html"></a></li>
+        <li><a href="contact_ways.html"></a></li>
+        <li><a href="reset_pwd.html"></a></li>
+        <li><a href="my_collection.html"></a></li>
+        <li><a href="my_showing.html"></a></li>
+        <li><a href="personal_info.html"></a></li>
+        <li><a href="user.html"></a></li>
+    </ul>
+
+<script>
+    !function(){
+        var links = document.querySelectorAll("a");
+        for(var i = 0; i < links.length; i++){
+            links[i].innerHTML = links[i].href;
+            links[i].target = "_blank";
+        }
+    }();
+</script>
+</body>
+</html>

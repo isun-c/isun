@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>分类展厅</title>
+    <link rel="stylesheet" href="resource/css/_.css" />
+    <link rel="stylesheet" href="resource/css/sort.css" />
+    <script src="resource/js/jquery.js" ></script>
+    <script src="resource/js/config.js" ></script>
+    <!--加载本页所需要的数据-->
+    <script>
+        var _data;
+        $(window).on("load", function(){
+            /**
+             * img: 图片路径
+             * place: 架上位置（1 - 7）
+             * url: 点击调转链接
+             * text: 描述文字
+             */
+            var data = _data = [
+                {
+                    img:"resource/img/sort/an2.png",
+                    place: 1,
+                    url: "https://www.baidu.com",
+                    text: "釉省油瓷灯\n唐邛窑青"
+                },
+                //-------------------------------------------------------------------------------------
+                {
+                    img:"resource/img/sort/an1.png",
+                    place: 2,
+                    url: "",
+                    text: "八棱带盖瓷执壶\n明灰白釉开片纹"
+                },
+                {
+                    img:"resource/img/sort/an2.png",
+                    place: 3,
+                    url: "",
+                    text: "红带盖瓷碗\n清乾隆款胭脂"
+                },
+                {
+                    img:"resource/img/sort/an3.png",
+                    place: 4,
+                    url: "",
+                    text: "绪款粉\n彩云蝠瓷瓶青光"
+                },
+                {
+                    img:"resource/img/sort/an4.png",
+                    place: 5,
+                    url: "",
+                    text: "釉瓷碗\n唐邛窑青\n不拉不拉布拉"
+                },
+                {
+                    img:"resource/img/sort/an5.png",
+                    place: 6,
+                    url: "",
+                    text: "瓷盏盏盏盏盏盏盏"
+                },
+                {
+                    img:"resource/img/sort/an1.png",
+                    place: 7,
+                    url: "",
+                    text: "瓷炉子炉子炉子"
+                }
+                //-------------------------------------------------------------------------------------
+            ];
+
+            refresh_shelf(data);
+        });
+    </script>
+</head>
+<body>
+<div id="main">
+    <form class="_top" action="">
+        <i class="icon back _back"></i>
+        <input name="" placeholder="文物搜索"/>
+        <i class="icon magnifier btn" onclick="this.parentNode.submit();"></i>
+    </form>
+    <div class="middle">
+        <div class="search_recommend">
+            <div class="wrapper">
+                <div class="hot block">
+                    <p class="lab">热门搜索</p>
+                    <p class="items">
+                        <span class="item">年代</span>
+                        <!---------------------------------------------------->
+                        <span class="item">材质</span>
+                        <span class="item">规格</span>
+                        <!---------------------------------------------------->
+                    </p>
+                </div>
+                <div class="history block">
+                    <p class="lab">历史搜索</p>
+                    <p class="items">
+                        <span class="item">历史搜索1</span>
+                        <!---------------------------------------------------->
+                        <span class="item">历史搜索2</span>
+                        <span class="item">历史搜索3</span>
+                        <!---------------------------------------------------->
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="title">
+            <p class="t1">瓷器</p>
+            <p class="t2">文物见证历史</p>
+        </div>
+        <div class="gallery"></div>
+    </div>
+    <div class="slide_controller"><p></p></div>
+</div>
+<script>
+    !function(){
+        var gallery = $(".gallery");
+        var inspire_len = 130 * window.innerWidth / 750;
+        isun.flash($(".slide_controller p"), 1000);
+        var slide_len = 0;
+        var sync_sign = false;
+        isun.drag_measure($(document.body), function(d){
+            if(sync_sign) return;
+            sync_sign = true;
+            slide_len += d[1];
+            //向下滑动
+            if(slide_len > inspire_len){
+                location.reload(true);
+            }
+            //向上滑动
+            if(slide_len < -inspire_len){
+                gallery.animate({
+                    top: "-13.34rem"
+                }, 400, function(){
+                    //TODO 在这里更改陈列架数据
+                    //这里是测试代码
+                    var narr = [1,2,3,4,5,6,7];
+                    for(var k = 0; k < narr.length; k++){
+                        var ran = parseInt(Math.random() * narr.length);
+                        var temp = narr[k];
+                        narr[k] = narr[ran];
+                        narr[ran] = temp;
+                    }
+                    for(var k = 0; k < narr.length; k++){
+                        _data[k].place = narr[k];
+                    }
+
+                    //获取数据后，调用刷新函数刷新，数据格式请参照最前面数据的初始化或者此函数的声明
+                    refresh_shelf(_data);
+                    //////////////////////////////
+                    gallery.css("top", "13.34rem");
+                    gallery.animate({
+                        top: "0"
+                    }, 400, function(){
+                        sync_sign = false;
+                    });
+                });
+                return;
+            }
+            sync_sign = false;
+        }, function(){
+            slide_len = 0;
+        });
+    }();
+
+    !function(){
+        var top_input = $("._top input");
+        var search_recommend = $(".search_recommend");
+        var wrapper = search_recommend.children(".wrapper");
+        top_input.on("focus", function(){
+            if(search_recommend.is(":animated")){
+                search_recommend.stop();
+                search_recommend.css("height", wrapper.height() / 100 * 750 / window.innerWidth + "rem");
+            }else{
+                search_recommend.animate({
+                    height: wrapper.height() / 100 * 750 / window.innerWidth + "rem"
+                }, 500)
+            }
+        }).on("blur", function(){
+            if(search_recommend.is(":animated")){
+                search_recommend.stop();
+                search_recommend.css("height", "0");
+            }else{
+                search_recommend.animate({
+                    height:"0"
+                }, 500)
+            }
+        });
+
+        search_recommend.find(".item").on("click", function(){
+            top_input.val(this.innerHTML);
+            top_input.parent().submit();
+        });
+    }();
+
+    /**
+     * 刷新架子上的文物
+     * @param p 文物信息的对象的数组  {img: 文物图片链接, text: 文物描述, url: 点击跳转链接, place: 在架上的位置(1 - 7), wrap_len: 每多少字换行 }
+     *              文物描述中，使用 换行符(\n)自定义换行位置
+     */
+    var refresh_shelf;
+    !function(){
+        var default_wrap_len = [7, 7, 10, 10, 10, 8, 7];
+
+        var gallery = $(".gallery");
+        refresh_shelf = function (p){
+            if(p.constructor != Array){
+                return;
+            }
+            gallery.html("");
+
+            for(var i = 0; i < p.length; i++){
+                !function(){
+                    var item_info = p[i];
+                    var wrap_len = item_info.wrap_len ? item_info.wrap_len : default_wrap_len[item_info.place - 1];
+                    var item = $(
+                            '<div class="item i' + item_info.place +'">' +
+                                '<p class="text col top"></p>' +
+                                '<div class="box">' +
+                                    '<img src="'+ item_info.img +'"/>' +
+                                '</div>' +
+                            '</div>');
+                    if(item_info.url){
+                        item.find("img").on("click", function(){
+                            location.href = item_info.url;
+                        });
+                    }
+
+                    if(item_info.text){
+                        var text = item.find(".text");
+                        var t_parts = item_info.text.split("\n");
+                        for(var j = 0; j < t_parts.length; j++){
+                            var str = t_parts[j];
+                            while(true){
+                                if(str.length <= wrap_len){
+                                    $("<span/>").html(str).prependTo(text);
+                                    break;
+                                }else{
+                                    $("<span/>").html(str.substr(0, wrap_len)).prependTo(text);
+                                    str = str.substr(wrap_len);
+                                }
+                            }
+                        }
+                    }
+
+                    item.appendTo(gallery);
+                }();
+            }
+        };
+    }();
+</script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>选择头像</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="resource/css/_.css" />
+    <link rel="stylesheet" href="resource/css/pick_head_img.css" />
+    <script src="resource/js/jquery.js" ></script>
+    <script src="resource/js/config.js" ></script>
+</head>
+<body>
+<form id="main">
+    <img />
+
+    <span class="_btn">选择图片</span>
+    <input type="file" name="head_img" class="field_head_img"/>
+</form>
+
+<script>
+    !function(){
+        var img = $("img");
+        var file = $("input").on("click", function(e){
+        	e.stopPropagation();
+        });
+
+        var btn = $("._btn");
+        $(document.body).on("click", function(e){
+            file.click();
+        });
+        file.on("change", function(){
+            var reader = new FileReader();
+            reader.onload = function(){
+                img[0].src = reader.result;
+            };
+            reader.readAsDataURL(this.files[0]);
+        });
+
+        img.on("load", function(e){
+            btn.html("保存").on("click", function(e){
+                $(this).parents("form")[0].submit();
+                e.stopPropagation();
+            });
+        });
+    }();
+</script>
+</body>
+</html>

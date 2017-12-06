@@ -1,0 +1,155 @@
+@charset "utf-8";
+
+#main{
+    background-color: #F6F7FA;
+}
+.top{
+    padding-top: 0.63rem;
+    height: 1.28rem;
+    position: relative;
+    text-align: center;
+    background-color: #040636;
+    box-sizing: border-box;
+}
+.top .icon{
+    position: absolute;
+    left: 0.4rem;
+    width: 0.42rem;
+    height: 0.42rem;
+    background-size: 100%;
+}
+.top span{
+    font-size: 0.33rem;
+    line-height: 0.42rem;
+    letter-spacing: 0.02rem;
+}
+
+
+.body *{
+    color: #333;
+}
+.body .item{
+    height: 1rem;
+    line-height: 1rem;
+    position: relative;
+    background-color: white;
+}
+.body .item:after{
+    content: ">";
+    font-size: 0.5rem;
+    font-weight: bold;
+    font-family: 幼圆, serif;
+    color: #AFAFAF;
+    margin-right: 0.4rem;
+    float: right;
+    width: 0.4rem;
+    text-align: right;
+    line-height: 1rem;
+}
+.body .item *{
+    vertical-align: middle;
+}
+.body .item .name{
+    font-size: 0.25rem;
+    vertical-align: top;
+    margin-left: 0.39rem;
+}
+.body .item .head_img{
+    width: 0.8rem;
+    height: 0.8rem;
+    border-radius: 50%;
+    position: absolute;
+    right: 0.8rem;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+.body .item .value{
+    position: absolute;
+    right: 0.8rem;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+.sub_page{
+    position: absolute;
+    top: 0;
+    left: 100%;
+    width: 100%;
+    height: 13.34rem;
+    background: #F6F7FA;
+    z-index: 1;
+}
+
+.sub_page ._top{
+    padding-top: 0.63rem;
+    height: 1.28rem;
+    text-align: left;
+    position: relative;
+    background-color: #040636;
+    box-sizing: border-box;
+}
+.sub_page ._top .icon.back{
+    width: 0.42rem;
+    height: 0.42rem;
+    background-size: 100%;
+    margin-left: 0.37rem;
+    margin-right: 0.15rem;
+}
+.sub_page ._top .cancel{
+    font-size: 0.36rem;
+    line-height: 0.42rem;
+    vertical-align: top;
+}
+.sub_page ._top .save{
+    font-size: 0.36rem;
+    line-height: 0.42rem;
+    float: right;
+    margin-right: 0.38rem;
+}
+
+.sub_page.nick_name input{
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0 0.3rem;
+    height: 1rem;
+    border: none;
+    background: white;
+    margin-top: 0.5rem;
+    color: black;
+    font-size: 0.3rem;
+    font-family: 微软雅黑, serif;
+}
+.sub_page.nick_name .icon.close{
+    position: absolute;
+    right: 0.7rem;
+    top: 2.12rem;
+    width: 0.32rem;
+    height: 0.32rem;
+    background-size: 100%;
+}
+
+.sub_page.sex input{
+    display: none;
+}
+.sub_page.sex p.item{
+    height: 1rem;
+    line-height:1rem;
+    background-color: white;
+    color: black;
+    padding-left: 0.4rem;
+}
+.sub_page.sex p.item.male{
+    border-bottom: 0.02rem solid #EFEFEF;
+    margin-top: 0.5rem;
+}
+
+.sub_page.sex p.item.checked{
+    background:white url(../img/icon/icon_bingo.png) no-repeat 6.7rem 0.33rem;
+    background-size: 0.4rem;
+}
+
+.receiver{
+    display: none;
+}

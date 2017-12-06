@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- 客服中心菜单、设置菜单、常见问题列表、鉴宝消息、我的评论、历史鉴宝消息、普通用户查看鉴宝消息  公用此页面 -->
+    <title>消息 | 菜单</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="resource/css/_.css" />
+    <link rel="stylesheet" href="resource/css/message.css" />
+    <script src="resource/js/jquery.js" ></script>
+    <script src="resource/js/layer.js" ></script>
+    <script src="resource/js/config.js" ></script>
+</head>
+<body>
+<div id="main">
+    <div class="top">
+        <i class="icon back _back"></i>
+        <span class="text">标题</span>
+    </div>
+    <div class="content">
+        <!--1 客服中心菜单-->
+        <!--<div class="block service_center">
+            <p class="item">
+                <i class="icon note3"></i>
+                <span class="text">意见与反馈</span>
+                <b class="arrow"></b>
+            </p>
+            <p class="item">
+                <i class="icon qmark"></i>
+                <span class="text">常见问题</span>
+                <b class="arrow"></b>
+            </p>
+            <p class="item">
+                <i class="icon telephonist2"></i>
+                <span class="text">联系客服</span>
+                <b class="arrow"></b>
+            </p>
+        </div>-->
+        <!--2 常见问题列表 -->
+        <!--<div class="block common_question">
+            <p class="item">
+                <span class="text">怎么进行评价</span>
+                <b class="arrow"></b>
+            </p>
+            <p class="add_more">加载更多</p>
+        </div>-->
+        <!--3 消息列表，鉴宝消息、我的评论、历史鉴宝消息、普通用户查看鉴宝消息 都使用这个区块-->
+        <div class="block msg">
+            <!--------------------------------------------------------------------->
+            <p class="item">
+                <img class="head_img" src="resource/img/user/user_head.png"/>
+                <span class="text">啊啊啊啊啊啊啊啊啊啊啊啊啊</span>
+                <b class="arrow"></b>
+            </p>
+            <p class="item">
+                <img class="head_img" src="resource/img/user/user_head.png"/>
+                <span class="text">啊啊啊啊啊啊啊啊啊啊啊啊啊</span>
+                <b class="arrow"></b>
+            </p>
+            <p class="item">
+                <img class="head_img" src="resource/img/user/user_head.png"/>
+                <span class="text">啊啊啊啊啊啊啊啊啊啊啊啊啊</span>
+                <b class="arrow"></b>
+            </p>
+            <!--------------------------------------------------------------------->
+            <p class="add_more">加载更多</p>
+        </div>
+        <!--4 设置菜单 -->
+        <!--<div class="block setting">
+            <p class="item">
+                <span class="text">修改密码</span>
+                <b class="arrow"></b>
+            </p>
+            <p class="item">
+                <span class="text">清除缓存</span>
+                <b class="arrow"></b>
+            </p>
+            <p class="item">
+                <span class="text">关于我们</span>
+                <b class="arrow"></b>
+            </p>
+            <p class="item">
+                <span class="text">免责声明</span>
+                <b class="arrow"></b>
+            </p>
+        </div>-->
+    </div>
+</div>
+<script>
+    /**
+     * 添加新消息
+     * @param p 包含消息数据的对象数组 {url: 点击消息后跳转目标, imgUrl: 左侧显示的头像（图片）的链接, text: 消息内容}
+     */
+    var add;
+    !function(){
+        var content_block = $(".content .block");
+        add = function(p){
+            for(var i = 0; i < p.length; i++){
+                !function(){
+                    var param = p[i];
+                    var item = $(
+                            '<p class="item">' +
+                            '<img class="head_img"/>' +
+                            '<span class="text"></span>' +
+                            '<b class="arrow"></b>' +
+                            '</p>');
+                    item.find(".head_img").attr("src", param.imgUrl).siblings(".text").html(param.text);
+
+                    content_block.append(item);
+
+                    if(param.url){
+                        item[0].onclick = function(){
+                            location.href = param.url;
+                        };
+                    }
+                }();
+            }
+        };
+    }();
+
+    //点击添加更多按钮后的操作
+    $(".add_more").on("click", function(){
+        var load_index = layer.load(2, {time: 30000});
+        $.ajax({
+            url: "",
+            type: "get",
+            data: {},
+            success: function(data){
+                //测试代码
+                $(".add_more").siblings(".item").last().clone(true).insertBefore($(".add_more"));
+                setTimeout(function(){layer.close(load_index)}, 1000);
+                ////////////////////////////////////
+            },
+            error: function(xhr, a, b){
+
+            }
+        });
+    });
+
+//测试代码
+//    setTimeout(function(){
+//        add([
+//            {
+//                text: "啊的发家史的浪费空间",
+//                imgUrl: "resource/img/logo_no_title.png",
+//                url: "http://www.baidu.com"
+//            },
+//            {
+//                text: "阿萨德离开家flak大煞风景",
+//                imgUrl: "resource/img/logo_no_title.png",
+//                url: "http://www.baidu.com"
+//            },
+//            {
+//                text: "阿娇flak三等奖flak三等奖flask的减肥",
+//                imgUrl: "resource/img/logo_no_title.png",
+//                url: "http://www.baidu.com"
+//            }
+//        ])
+//    }, 1000);
+</script>
+</body>
+</html>

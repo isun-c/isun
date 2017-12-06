@@ -1,0 +1,101 @@
+@charset "utf-8";
+
+#main{
+    background-color: #F6F7FB;
+}
+
+.top{
+    padding-top: 0.66rem;
+    height: 0.66rem;
+    background-color: #040636;
+    text-align: center;
+    font-size: 0.39rem;
+    position: relative;
+}
+.top > *{
+    vertical-align: top;
+}
+.top .icon.back{
+    width: 0.42rem;
+    height: 0.42rem;
+    position: absolute;
+    top: 0.66rem;
+    left: 0.4rem;
+    background-size: 100%;
+    float: left;
+}
+.top span{
+    display: inline-block;
+    height: 0.42rem;
+    line-height: 0.42rem;
+}
+
+.pad{
+    margin: 0.64rem 0.4rem 0.4rem 0.4rem;
+    padding: 0.4rem;
+    background-color: white;
+    box-shadow: 0 0.05rem 0.1rem  #ccc;
+    height: 7.17rem;
+    overflow: hidden;
+    text-align: center;
+}
+.pad *{
+    color: #444;
+}
+.pad .p1{
+    margin-top: 1.33rem;
+    font-size: 0.3rem;
+}
+.pad .p2 *,
+.pad .p3 *{
+    display: inline-block;
+    height: 0.75rem;
+    line-height: 0.75rem;
+}
+.pad .p2{
+    margin-top: 0.64rem;
+}
+.pad .p3{
+    margin-top: 0.80rem;
+}
+.pad p:not(.p1) *{
+    vertical-align: middle;
+}
+.pad p:not(.p1) .icon{
+    width: 0.75rem;
+    height: 0.75rem;
+    background-size: 100%;
+}
+.pad p:not(.p1) .lab{
+    margin-left: 0.5rem;
+    color: #666;
+}
+.pad p:not(.p1) .call{
+    margin-left: 0.20rem;
+    font-size: 0.25rem;
+}
+
+
+
+.bottom{
+    margin-top: 0.4rem;
+    text-align: center;
+    font-size: 0.2rem;
+    letter-spacing: 0.03rem;
+}
+.bottom *{
+    color: #999;
+}
+.bottom .p1{
+    font-size: 0;
+}
+.bottom .p1 a{
+    padding: 0 0.15rem;
+    font-size: 0.2rem;
+}
+.bottom .p1 a:first-child{
+    border-right: 1px solid #999;
+}
+.bottom .p2{
+    margin-top: 0.10rem;
+}

@@ -1,0 +1,111 @@
+@charset "utf-8";
+
+.top{
+    padding-top: 0.63rem;
+    text-align: center;
+    background-color: #030535;
+    height: 0.63rem;
+}
+.top .icon{
+    position: absolute;
+    left: 0.4rem;
+    width: 0.42rem;
+    height: 0.42rem;
+    background-size: 100%;
+}
+.top .text{
+    font-size: 0.3rem;
+    letter-spacing: 0.03rem;
+}
+/*
+.content .block{
+    display: none;
+}
+.content .block.show{
+    display: block;
+}*/
+.content .block.user .loginout{
+    position: absolute;
+    bottom: 0.5rem;
+    width: 2.8rem;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background: #010640;
+    height: 0.67rem;
+    line-height: 0.67rem;
+    border-radius: 0.1rem;
+}
+
+.content{
+    position: absolute;
+    top: 1.26rem;
+    bottom: 0;
+    width: 100%;
+    background: #F3F4F9;
+    overflow: auto;
+}
+.content .block{
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+.content .item{
+    padding-left: 0.4rem;
+    background: white;
+    height: 0.98rem;
+    line-height: 0.97rem;
+    border-bottom: 1px solid #F9F9F9;
+    font-size: 0.25rem;
+    position: relative;
+}
+.content .item:last-child{
+    border-bottom: none;
+}
+.content .item *{
+    vertical-align: middle;
+    color: #2E2E2E;
+}
+.content .item .icon{
+    width: 0.7rem;
+    height: 0.4rem;
+    margin-left: -0.15rem;
+    margin-right: 0.15rem;
+    background-size: auto 100%;
+    background-position: center;
+}
+.content .item img{
+    width: 0.58rem;
+    height: 0.58rem;
+    border-radius: 50%;
+    margin-right: 0.2rem;
+}
+.content .item .text{
+    display: inline-block;
+    transform: translateY(-0.03rem);
+}
+.content .item .arrow{
+    position: absolute;
+    right: 0.4rem;
+}
+.content .item .arrow:after{
+    content: ">";
+    font-size: 0.5rem;
+    font-weight: bold;
+    font-family: 幼圆, serif;
+    color: #AFAFAF;
+}
+
+
+.content .add_more{
+    position: absolute;
+    width: 1.5rem;
+    left: 0;
+    right: 0;
+    bottom: 0.1rem;
+    margin: auto;
+    height: 0.25rem;
+    line-height: 0.25rem;
+    color: #aaa;
+    text-align: center;
+    font-size: 0.2rem;
+}

@@ -1,0 +1,207 @@
+@charset "utf-8";
+
+#main{
+    background-image: url(../img/index/bg.jpg);
+}
+
+.lead_page{
+    width: 100%;
+    height: 100%;
+    background: white url(../img/index/bg2.jpg) no-repeat;
+    background-size: 100% 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10000;
+}
+.lead_page .version{
+    position:absolute;
+    text-align: center;
+    top: 11.06rem;
+    width: 100%;
+    line-height: 0.4rem;
+}
+
+.lead_page .version span{
+    line-height: 0.4rem;
+    border-top: 0.05rem solid white;
+}
+
+.video_page{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    background: white;
+}
+.video_page video{
+    width: 100%;
+    height: 100%;
+}
+.video_page .skip{
+    position: absolute;
+    display: block;
+    width: 100%;
+    text-align: center;
+    top: 11.6rem;
+    font-size: 0.4rem;
+    color: #E50E15 !important;
+    font-family: 黑体, serif;
+}
+
+.head{
+    height: 1.5rem;
+}
+.head .logo{
+    width: 2.1rem;
+    margin-top: 0.5rem;
+    margin-left: 0.4rem;
+}
+.head ._btn{
+    width: 1.73rem;
+    height: 0.4rem;
+    letter-spacing: 0.04rem;
+    background: #9D2932;
+    border-radius: 0.15rem;
+    color: white;
+    font-family: 宋体, serif;
+    font-weight: bold;
+    line-height: 0.4rem;
+    font-size: 0.25rem;
+    float: right;
+    margin-top: 0.65rem;
+    margin-right: 0.4rem;
+}
+
+.description{
+    height: 4rem;
+    text-align: center;
+}
+.description dt{
+    font-size: 0.5rem;
+    font-family: 黑体, serif;
+
+}
+.description dd{
+    font-family: 幼圆, serif;
+    padding: 0.68rem 0.45rem 0 0.45rem;
+    line-height: 0.60rem;
+}
+
+.plate{
+    height: 6.8rem;
+    background:url(../img/index/timeline.png) no-repeat 0 4.45rem;
+    background-size: 100%;
+    position: relative;
+    overflow: hidden;
+}
+.plate .item{
+    width: 0;
+    height:0;
+    background: lightblue;
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+}
+.plate .item img{
+    position: absolute;
+    max-height: 2rem;
+    width: 1rem;
+    bottom: 0;
+    /*bottom: 0.2rem;*/
+    left: 0;
+    margin-left: -0.5rem;
+    transform-origin: center bottom;
+}
+.plate .item .text{
+    /*display: inline-block;*/
+    /*position: absolute;*/
+    /*top: 0;*/
+    /*width: 1rem;*/
+    /*margin-left: -0.5rem;*/
+    /*text-align: center;*/
+    /*font-size: 0.20rem;*/
+}
+
+.plate .item.selected *{
+    transform: scale(1.3);
+}
+.plate .item.selected img{
+    bottom: 0.3rem;
+}
+.plate .item.selected .text{
+    top: 0.1rem;
+}
+.plate .cover_pad{
+    width: 100%;
+    z-index: 1;
+}
+.plate .up_cover_pad{
+    height: 2.5rem;
+}
+.plate .down_cover_pad{
+    position: absolute;
+    bottom: 0;
+    height: 1.5rem;
+}
+.plate .plate_pointer{
+    position: absolute;
+    top: 4.27rem;
+    left: 3.50rem;
+    width: 0.5rem;
+    height: 2.35rem;
+    z-index: 3;
+    transform-origin: center 2.19rem;
+    -webkit-transform-origin: center 2.19rem;
+    transform: rotate(-1deg);
+}
+
+
+.type_swiper{
+    position: absolute;
+    top: 6.05rem;
+    left: 0;
+    width: 100%;
+    height: 1.45rem;
+    z-index: 3;
+}
+.type_swiper .swiper-slide{
+    text-align: center;
+}
+.type_swiper ._btn{
+    width: 1.2rem;
+    font-size: 0.29rem;
+    letter-spacing: 0.03rem;
+    color: white;
+    height: 0.49rem;
+    line-height: 0.49rem;
+    font-family: 幼圆, serif;
+    border-radius: 0.1rem;
+}
+.type_swiper ._btn:before{
+    content: "";
+    display: inline-block;
+    width: 0.03rem;
+}
+.type_swiper ._btn.selected{
+    background-color: #9F2A32;
+}
+.type_swiper .swiper-pagination{
+    bottom: 0.55rem;
+}
+.type_swiper .swiper-pagination .swiper-pagination-bullet{
+    width: 0.1rem !important;
+    height: 0.1rem !important;
+    background:white;
+    opacity: 0.7;
+    vertical-align: middle;
+    margin: 0 0.13rem !important;
+}
+.type_swiper .swiper-pagination .swiper-pagination-bullet.swiper-pagination-bullet-active{
+    width: 0.13rem !important;
+    height: 0.13rem !important;
+    opacity: 1;
+}

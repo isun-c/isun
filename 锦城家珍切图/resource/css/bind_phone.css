@@ -1,0 +1,163 @@
+@charset "utf-8";
+
+#main{
+    background-color: #F6F7FB;
+}
+
+.top{
+    padding-top: 0.55rem;
+    height: 0.77rem;
+    background-color: #040636;
+}
+.top > *{
+    vertical-align: top;
+}
+.top .icon.note2{
+    width: 0.58rem;
+    height: 0.58rem;
+    margin-left: 0.61rem;
+    background-size: 100%;
+}
+.top .text{
+    display: inline-block;
+    margin-left: 0.18rem;
+    margin-top: -0.03rem;
+}
+.top .text .text1{
+    font-size: 0.30rem;
+    letter-spacing: 0.04rem;
+    transform: translateY(-0.03rem);
+}
+.top .text .text2{
+    font-size: 0.14rem;
+}
+.top .icon.share{
+    width: 0.54rem;
+    height: 0.54rem;
+    background-size: auto 100%;
+    float: right;
+    margin-right: 0.6rem;
+}
+
+.form{
+    margin: 0.64rem 0.4rem 0.4rem 0.4rem;
+    padding: 0.4rem;
+    background-color: white;
+    box-shadow: 0 0.05rem 0.1rem  #ccc;
+    height: 7.17rem;
+    overflow: hidden;
+}
+.form *{
+    color: #444;
+}
+.form input{
+    box-sizing: border-box;
+    height: 0.68rem;
+    border: 1px solid #BABABA;
+    font-size: 0.35rem;
+    margin-top: 0.05rem;
+}
+.form .title{
+    font-size: 0.35rem;
+    padding-bottom: 0.25rem;
+    border-bottom: 1px solid #DADADA;
+}
+.form .current{
+    margin-top: 0.2rem;
+    font-size: 0.27rem;
+}
+.form .current *{
+    display: block;
+}
+.form .current input{
+    width: 5.91rem;
+}
+
+.form .checkCode{
+    margin-top: 0.48rem;
+}
+.form .checkCode input{
+    margin-top: 0;
+    width: 3.5rem;
+    text-align: center;
+}
+.form .checkCode input::-webkit-input-placeholder{
+    font-family: 微软雅黑, serif;
+    font-size: 0.27rem;
+}
+.form .checkCode input::-moz-placeholder{
+    font-family: 微软雅黑, serif;
+    font-size: 0.27rem;
+}
+.form .checkCode input:-ms-input-placeholder{
+    font-family: 微软雅黑, serif;
+    font-size: 0.27rem;
+}
+.form .checkCode ._btn{
+    width: 2rem;
+    height: 0.68rem;
+    line-height: 0.68rem;
+    background-color: #A40000;
+    border-radius: 0.09rem;
+    float: right;
+    color: white;
+    font-size: 0.28rem;
+    letter-spacing: 0.02rem;
+}
+.form .checkCode ._btn:before{
+    content: "";
+    display: inline-block;
+    width: 0.02rem;
+}
+
+.form .btn_ok{
+    margin-top: 0.58rem;
+    height: 0.7rem;
+}
+.form .btn_ok ._btn{
+    width: 100%;
+    height: 0.7rem;
+    line-height: 0.7rem;
+    letter-spacing: 0.06rem;
+    font-size: 0.27rem;
+    color: white;
+    border-radius: 0.09rem;
+    background-color: #010640;
+}
+.form .btn_cancel{
+    margin-top: 0.14rem;
+    height: 0.7rem;
+}
+.form .btn_cancel ._btn{
+    width: 100%;
+    height: 0.7rem;
+    line-height: 0.7rem;
+    letter-spacing: 0.06rem;
+    font-size: 0.27rem;
+    border-radius: 0.09rem;
+    background-color: transparent;
+    border: 1px solid #B9B9B9;
+}
+
+.bottom{
+    margin-top: 0.4rem;
+    text-align: center;
+    font-size: 0.2rem;
+    letter-spacing: 0.03rem;
+}
+.bottom *{
+    color: #999;
+}
+.bottom .p1{
+    font-size: 0;
+}
+.bottom .p1 a{
+    padding: 0 0.15rem;
+    font-size: 0.2rem;
+}
+.bottom .p1 a:first-child{
+    border-right: 1px solid #999;
+}
+.bottom .p2{
+    margin-top: 0.10rem;
+}

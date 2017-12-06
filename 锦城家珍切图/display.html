@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文物评论</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="resource/js/swiper/swiper.min.css" />
+    <link rel="stylesheet" href="resource/css/_.css" />
+    <link rel="stylesheet" href="resource/css/display.css" />
+    <script src="resource/js/jquery.js" ></script>
+    <script src="resource/js/config.js" ></script>
+    <script src="resource/js/swiper/swiper.min.js"></script>
+</head>
+<body>
+<div id="main">
+    <div class="sub_page main">
+        <div class="bg_img swiper-container">
+            <div class="swiper-wrapper">
+                <img src="resource/img/display/bg3.jpg" class="swiper-slide"/>
+                <!-------------------------------->
+                <img src="resource/img/index/bg.jpg" class="swiper-slide"/>
+                <img src="resource/img/index/bg2.jpg" class="swiper-slide"/>
+                <img src="resource/img/index/bg.jpg" class="swiper-slide"/>
+                <img src="resource/img/index/bg2.jpg" class="swiper-slide"/>
+                <img src="resource/img/index/bg.jpg" class="swiper-slide"/>
+                <img src="resource/img/index/bg2.jpg" class="swiper-slide"/>
+                <!-------------------------------->
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+        <div class="top">
+            <i class="icon back _back" ></i>
+            <i class="icon share" onclick="location.href='分享页面'"></i>
+        </div>
+        <div class="middle">
+            <p class="favour"><i class="icon favour1"></i></p>
+            <!-- 已点赞用的图标 -->
+            <!--<i class="icon favour2"></i>-->
+            <p class="title">明灰白瓷壶明灰白瓷壶</p>
+            <p class="detail"><i class="icon add"></i></p>
+        </div>
+        <div class="bottom">
+            <div class="item left note" onclick="location.href = 'sync_note.html'">
+                <i class="icon note"></i>
+                <p class="test">我的心得</p>
+            </div>
+            <div class="item right remark" onclick="location.href = 'remark.html'">
+                <i class="icon remark"></i>
+                <p class="test">评论</p>
+            </div>
+            <div class="item right pack">
+                <i class="icon pack"></i>
+                <p class="test">收藏</p>
+            </div>
+        </div>
+    </div>
+    <div class="sub_page detail">
+        <div class="top">
+            <i class="icon back"></i>
+            <span class="text">背景</span>
+            <img src="resource/img/display/bg3.jpg"/>
+        </div>
+        <div class="content">嗯啊哦嗯啊哦嗯啊哦嗯啊哦嗯啊哦嗯啊哦嗯啊哦嗯啊哦嗯啊哦嗯啊哦嗯啊哦嗯啊哦嗯啊哦嗯啊哦嗯啊哦嗯啊哦嗯啊哦嗯啊哦嗯啊哦嗯啊哦</div>
+        <div class="audio">
+            <p class="title">播放音频</p>
+            <audio src="resource/other/audio.mp3" controls></audio>
+        </div>
+        <div class="video">
+            <p class="title">观看文物视频</p>
+            <video src="resource/other/movie.ogg" controls></video>
+        </div>
+    </div>
+</div>
+<script>
+
+    //详情子页相关
+    !function(){
+        var main_page = $(".sub_page.main");
+        var detail_btn = main_page.find(".middle .detail");
+        var detail_pate = $(".sub_page.detail");
+        var detail_back_btn = detail_pate.find(".top .icon.back");
+
+        detail_btn.on("click", function(){
+            main_page.addClass("_blur");
+            detail_pate.css({ left: "0"});
+        });
+        detail_back_btn.on("click", function(){
+            main_page.removeClass("_blur");
+            detail_pate.css({ left: "100%"});
+        });
+
+    }();
+
+    //收藏按钮
+    !function(){
+        var pack_btn = $(".sub_page.main .bottom .item.pack *");
+        var favour_icon = $(".sub_page.main .middle .favour .icon");
+        pack_btn.on("click", function(){
+            $.ajax({
+                url: "",
+                type: "get",
+                data: {},
+                success: function(data){
+                    favour_icon.removeClass("favour1").addClass("favour2");
+                },
+                error: function(xhr, a, b){
+
+                }
+            });
+        });
+    }();
+
+    new Swiper(".sub_page.main .bg_img",{
+        pagination: '.sub_page.main .bg_img .swiper-pagination',
+        paginationClickable: true
+    });
+</script>
+</body>
+</html>

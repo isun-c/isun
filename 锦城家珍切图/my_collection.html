@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>我的收藏</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="resource/css/_.css" />
+    <link rel="stylesheet" href="resource/css/my_collection.css" />
+    <script src="resource/js/jquery.js" ></script>
+    <script src="resource/js/config.js" ></script>
+</head>
+<body>
+<div id="main">
+    <div class="top">
+        <div class="r1">
+            <i class="icon back _back"></i>
+            <span>我的收藏</span>
+        </div>
+        <div class="r2">
+            <p class="btn">类型</p>
+            <p class="text">文物收藏</p>
+        </div>
+        <div class="choosing">
+            <p class="item">文物收藏</p>
+            <p class="item">专家收藏</p>
+            <div class="triangle"></div>
+        </div>
+        <script>
+            !function(){
+                var choosing = $(".top .choosing");
+                var type_text_el = $(".top .r2 .text");
+                $(".top .r2 .btn").on("click", function(e){
+                    choosing.addClass("show");
+                    e.stopPropagation();
+                });
+                $(document.body).on("click", function(){
+                    choosing.removeClass("show");
+                });
+                choosing.children(".item").on("click", function(){
+                    var type_text = this.innerHTML;
+                    //TODO 查询数据
+                    $.ajax({
+                        url: "",
+                        type: "get",
+                        data: {},
+                        success: function(data){
+
+
+                            type_text_el.html(type_text);
+                        },
+                        error: function(xhr, a, b){
+
+                        }
+                    });
+                });
+            }();
+        </script>
+    </div>
+    <div class="body">
+        <div class="item">
+            <p class="img"><img src="resource/img/sort/an1.png" /></p>
+            <p class="text">
+                <span class="date">2011年11月30日</span>
+                <span class="time">下午：15:00</span>
+            </p>
+        </div>
+        <!------------------------------------------------------------------>
+        <div class="item">
+            <p class="img"><img src="resource/img/sort/an1.png" /></p>
+            <p class="text">
+                <span class="date">2011年11月30日</span>
+                <span class="time">下午：15:00</span>
+            </p>
+        </div>
+        <div class="item">
+            <p class="img"><img src="resource/img/sort/an1.png" /></p>
+            <p class="text">
+                <span class="date">2011年11月30日</span>
+                <span class="time">下午：15:00</span>
+            </p>
+        </div>
+        <!------------------------------------------------------------------>
+    </div>
+</div>
+</body>
+</html>

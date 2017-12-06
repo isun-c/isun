@@ -1,0 +1,42 @@
+@charset "utf-8";
+
+body{
+    background: #F5F6F9;
+}
+
+.top{
+    margin-top: 0.68rem;
+    height: 0.64rem;
+}
+
+.top .icon{
+    width: 0.64rem;
+    height: 0.64rem;
+    margin-left: 0.4rem;
+    background-size: auto 100%;
+}
+
+.content{
+    margin-top: 0.3rem;
+
+}
+.content p{
+    text-align: center;
+    font-size: 0.3rem;
+    font-family: 仿宋, serif;
+    color: #333;
+    font-weight: bold;
+}
+.content p:before{
+    content: "【";
+}
+.content p:after{
+    content: "】";
+}
+
+.content div{
+    color: #666;
+    font-size: 0.24rem;
+    margin-top: 0.4rem;
+    padding: 0 0.4rem;
+}

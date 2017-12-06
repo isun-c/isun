@@ -1,0 +1,30 @@
+@charset "utf-8";
+
+#main{
+    background-color: #F6F5FA;
+}
+
+.top{
+    box-sizing: border-box;
+    padding-top: 0.66rem;
+    height: 1.32rem;
+    background: #030535;
+    text-align: center;
+}
+.top .icon.back{
+    position: absolute;
+    left: 0.4rem;
+    width: 0.42rem;
+    height: 0.42rem;
+    background-size: 100%;
+}
+.top .text{
+    font-size: 0.36rem;
+    letter-spacing: 0.02rem;
+    line-height: 0.42rem;
+}
+
+.content{
+    color: #100106;
+    padding: 0.3rem 0.4rem 0 0.4rem;
+}

@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>锦城家珍</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="resource/js/swiper/swiper.min.css" />
+    <link rel="stylesheet" href="resource/css/_.css" />
+    <link rel="stylesheet" href="resource/css/index.css" />
+    <script src="resource/js/jquery.js" ></script>
+    <script src="resource/js/config.js" ></script>
+    <script src="resource/js/swiper/swiper.min.js"></script>
+
+    <script>
+        //是否包含 session， 用于标记客户是打开页面还是跳转页面（跳转过来不显示开场）
+        var with_session = false;
+
+        /**
+         * img_url: 图片链接
+         * description: 描述内容
+         * description_title: 描述标题
+         */
+        var bao_bei_list = [
+            {
+                img_url: "resource/img/index/an1.png",
+                description: "雕塑的不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉",
+                description_title: "雕塑",
+                list: [
+                    {name: "次级11", url: "https://www.baidu.com"},
+                    {name: "次级12", url: ""},
+                    {name: "次级13", url: ""},
+                    {name: "次级14", url: ""},
+                    {name: "次级15", url: ""},
+                    {name: "次级16", url: ""},
+                    {name: "次级17", url: ""},
+                    {name: "次级18", url: ""},
+                    {name: "次级19", url: ""},
+                    {name: "次级110", url: ""},
+                    {name: "次级111", url: ""}
+                ]
+            },
+            //-------------------------------------------------------------------------------------------------------------------------
+            {
+                img_url: "resource/img/index/an2.png",
+                description: "金器的不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉",
+                description_title: "金器",
+                list: [
+                    {name: "次级2", url: ""},
+                    {name: "次级2", url: "https://www.baidu.com"},
+                    {name: "次级2", url: ""},
+                    {name: "次级2", url: ""}
+                ]
+            },
+            {
+                img_url: "resource/img/index/an3.png",
+                description: "陶器的不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉",
+                description_title: "陶器",
+                list: [
+                    {name: "次级3", url: ""},
+                    {name: "次级3", url: "https://www.baidu.com"},
+                    {name: "次级3", url: ""},
+                    {name: "次级3", url: ""}
+                ]
+            },
+            {
+                img_url: "resource/img/index/an4.png",
+                description: "书法的不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉",
+                description_title: "书法",
+                list: [
+                    {name: "次级4", url: ""},
+                    {name: "次级4", url: ""},
+                    {name: "次级4", url: ""}
+                ]
+            },
+            {
+                img_url: "resource/img/index/an5.png",
+                description: "绘画的不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉",
+                description_title: "绘画",
+                list: [
+                    {name: "次级5", url: ""},
+                    {name: "次级5", url: "https://www.baidu.com"},
+                    {name: "次级5", url: ""},
+                    {name: "次级5", url: ""}
+                ]
+            },
+            {
+                img_url: "resource/img/index/moon1.png",
+                description: "残月1的不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉",
+                description_title: "残月1",
+                list: [
+                    {name: "次级6", url: ""},
+                    {name: "次级6", url: ""}
+                ]
+            },
+            {
+                img_url: "resource/img/index/moon2.png",
+                description: "残月2的不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉",
+                description_title: "残月2",
+                list: [
+                    {name: "次级7", url: ""}
+                ]
+            },
+            {
+                img_url: "resource/img/index/moon3.png",
+                description: "残月3的不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉",
+                description_title: "残月3",
+                list: [
+                    {name: "次级8", url: ""}
+                ]
+            },
+            {
+                img_url: "resource/img/index/moon4.png",
+                description: "残月4的不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉不拉",
+                description_title: "残月4",
+                list: [
+                    {name: "次级9", url: ""}
+                ]
+            }
+            //-------------------------------------------------------------------------------------------------------------------------
+        ];
+    </script>
+
+</head>
+<body>
+    <div id="main">
+        <script>
+            if(!with_session){
+                document.write('<div class="lead_page"><p class="version"><span>v1.1</span></p></div>');
+            }
+        </script>
+        <div class="head r_block">
+            <img class="logo" src="resource/img/logo.png" alt="锦城家珍"/>
+            <span class="_btn">每月推荐</span>
+        </div>
+        <dl class="description r_block">
+            <dt></dt>
+            <dd></dd>
+        </dl>
+        <div class="plate r_block">
+            <!--<div class="item">
+                <img src="resource/img/index/an1.png"/>
+                &lt;!&ndash;<p class="text">雕塑</p>&ndash;&gt;
+            </div>
+            <div class="item">
+                <img src="resource/img/index/an2.png"/>
+                &lt;!&ndash;<p class="text">金器</p>&ndash;&gt;
+            </div>
+            <div class="item">
+                <img src="resource/img/index/an3.png"/>
+                &lt;!&ndash;<p class="text">陶器</p>&ndash;&gt;
+            </div>
+            <div class="item">
+                <img src="resource/img/index/an4.png"/>
+                &lt;!&ndash;<p class="text">书法</p>&ndash;&gt;
+            </div>
+            <div class="item">
+                <img src="resource/img/index/an5.png"/>
+                &lt;!&ndash;<p class="text">绘画</p>&ndash;&gt;
+            </div>-->
+            <script>
+                !function(){
+                    for(var i = 0; i < bao_bei_list.length; i++){
+                        var bitem = bao_bei_list[i];
+                        document.write('<div class="item" data-index="'+ i +'"><img src="'+ bitem.img_url + '"/></div>');
+                    }
+                }();
+            </script>
+            <div class="up_cover_pad cover_pad"></div>
+            <div class="down_cover_pad cover_pad"></div>
+            <img class="plate_pointer" src="resource/img/index/shot.png" />
+        </div>
+
+        <div class="type_swiper swiper-container">
+            <div class="swiper-pagination"></div>
+            <div class="swiper-wrapper">
+                <!--<div class="swiper-slide">
+                    <span class="_btn">瓷器</span>
+                    <span class="_btn">陶器</span>
+                    <span class="_btn">金器</span>
+                    <span class="_btn">银器</span>
+                    <span class="_btn">武器</span>
+                </div>
+                <div class="swiper-slide">
+                    <span class="_btn">瓷器2</span>
+                    <span class="_btn">陶器2</span>
+                    <span class="_btn">金器2</span>
+                    <span class="_btn">银器2</span>
+                    <span class="_btn">武器2</span>
+                </div>
+                <div class="swiper-slide">
+                    <span class="_btn">瓷器3</span>
+                    <span class="_btn">陶器3</span>
+                    <span class="_btn">金器3</span>
+                    <span class="_btn">银器3</span>
+                    <span class="_btn">武器3</span>
+                </div>-->
+                <script>
+                    var refresh_swiper;
+                    !function(){
+                        var swiper = new Swiper(".type_swiper.swiper-container",{
+                            pagination: '.swiper-pagination',
+                            paginationClickable: true
+                        });
+                        var swiper_wraper = $(".swiper-wrapper");
+
+                        refresh_swiper = function (list){
+                            if(!list.length){
+                                return;
+                            }
+                            swiper.removeAllSlides();
+                            var item;
+                            var slide;
+                            for(var i = 0; i < list.length; i++){
+                                item = list[i];
+                                if(i % 5 == 0){
+                                    swiper.appendSlide(slide = $('<div class="swiper-slide">'));
+                                }
+                                $('<span class="_btn" data-index="' + i + '" onclick="location.href=\'' + item.url + '\'">' + item.name + '</span>').appendTo(slide);
+                            }
+                        }
+                    }();
+                </script>
+            </div>
+        </div>
+
+        <div class="_footnav r_block">
+            <div class="item">
+                <i class="icon home" ></i>
+                <p>首页</p>
+            </div>
+            <div class="item">
+                <i class="icon figure2" ></i>
+                <p>掌掌眼</p>
+            </div>
+            <div class="item camera">
+                <i class="icon camera" ></i>
+            </div>
+            <div class="item">
+                <i class="icon figure" ></i>
+                <p>我</p>
+            </div>
+            <div class="item">
+                <i class="icon more" ></i>
+                <p>更多</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        //类编翻页滑动区域
+//        var type_swiper = new Swiper(".type_swiper.swiper-container",{
+//            pagination: '.swiper-pagination',
+//            paginationClickable: true
+//        });
+//        $(".type_swiper ._btn").on("click", function(){
+//            bao_bei_choose(parseInt(this.getAttribute("data-index")));
+//        });
+
+        //after chossing
+        var bao_bei_choose;
+        var selected_index = -1;
+        !function(){
+            var plate = $(".plate.r_block");
+            var plate_items = plate.children(".item");
+//            var swiper_items = $(".type_swiper.swiper-container ._btn");
+            var description_block = $(".description.r_block");
+            var bao_bei_list = window.bao_bei_list;
+//            var type_swiper = window.type_swiper;
+
+            bao_bei_choose = function (index){
+                var bitem = bao_bei_list[index];
+//                if(selected_index == index){
+//                    location.href = bitem.target_url;
+//                    return;
+//                }
+                selected_index = index;
+                description_block.children("dt").html(bitem.description_title);
+                description_block.children("dd").html(bitem.description);
+//                type_swiper.slideTo(parseInt(index / 5));
+//                $(swiper_items.removeClass("selected")[index]).addClass("selected");
+//                $(plate_items.removeClass("selected")[index]).addClass("selected");
+                plate[0]._slide(90 - plate_items[index].dg);
+                refresh_swiper(bitem.list);
+            }
+        }();
+
+
+//        !function(){
+//            var type_btn = $(".type_swiper ._btn");
+//            type_btn.each(function(index){
+//                $(type_btn[index]).on("click", function(){
+//                    type_btn.removeClass("selected");
+//                    $(this).addClass("selected");
+//                });
+//            });
+//        }();
+
+        //lead_page
+        if(!with_session)
+        !function(){
+            var lead_page = $(".lead_page");
+            function out(){
+                if(lead_page.is(":animated")){
+                    return;
+                }
+                if(lead_page.parent().length == 0){
+                    return;
+                }
+                //插入视频页面
+                var video_page = $("<div />").addClass("video_page");
+                //TODO 视频链接填写在这里
+                video_page.append($("<video src='resource/other/mp4.mp4' controls />").on("ended",function(){
+                    $(this).next().click();
+                }));
+                video_page.append($("<span class='skip'>跳过</span>").on("click", function(){
+                    if(video_page.is(":animated")){
+                        return;
+                    }
+                    video_page.animate({
+                        "margin-left": "-100%"
+                    }, 400, function(){
+                        video_page.remove();
+                    });
+                }));
+                video_page.appendTo($("#main"));
+
+//                setTimeout(function(){
+//                    video_page.children("video")[0].play();
+//                }, 1000);
+
+                lead_page.animate({
+                    "margin-left": "-100%"
+                }, 400, function(){
+                    lead_page.remove();
+                });
+            }
+            setTimeout(out, 3000);
+            lead_page.on("click", out);
+        }();
+
+        //转盘动作
+        !function(){
+            var plateBlock = $(".plate");
+
+            while(plateBlock.children(".item").length < 7){
+                plateBlock.append(plateBlock.children(".item").clone(true, true));
+            }
+
+            var items = plateBlock.children(".item");
+            var pointer = plateBlock.children(".plate_pointer");
+
+            var interval;
+
+            /**
+             * item.dg 元素在曲线上的自变量值
+             */
+            items.each(function(index){
+                this.dg = 30 + index * 24;
+            });
+            var min_dg = 6;
+            var max_dg = 30 + (items.length - 1) * 24;
+
+            //原点在plate元素内的位置
+            var o_point_x = 3.75;
+            var o_point_y = 6.2;
+            //椭圆长短轴
+            var axis_x = 3.718;
+            var axis_y = 2.395;
+            var rate = axis_y / axis_x;
+
+            var sqrt_3 = Math.sqrt(3);
+            var k = -sqrt_3 * axis_y / axis_x;
+
+            //右侧交接点相对于原点坐标
+            var rp = {x: axis_x * sqrt_3 / 2, y: axis_y / 2};
+            //右侧交接点后的旋转角度
+            var r_rotate_deg = Math.atan(-k) * 180 / Math.PI;
+            //左侧交接点相对于原点坐标
+            var lp = {x: -axis_x * sqrt_3 / 2, y: axis_y / 2};
+            //左侧交接点前的旋转角度
+            var l_rotate_deg = -r_rotate_deg;
+
+            refresh();
+
+            //刷新item位置
+            function refresh(){
+                var PI = Math.PI;
+                for(var i = 0; i < items.length; i++){
+                    var item = items[i];
+
+                    if(item.dg < min_dg){
+                        item.dg = item.dg - min_dg + max_dg;
+                    }else if(item.dg > max_dg){
+                        item.dg = item.dg - max_dg + min_dg;
+                    }
+
+                    if(item.dg < 30){
+                        var dx = (30 - item.dg) * PI / 180 * axis_x / 2;
+                        $(item).css({
+                            transform: "translate(" + (o_point_x + rp.x + dx) + "rem," + (o_point_y - rp.y - dx * k) + "rem) scale(" + (1 - Math.abs(item.dg - 90) / 100) + ")"
+                        }).children().css({
+                            transform: "rotate(" + r_rotate_deg +"deg)"
+                        })
+                    }else if(item.dg >= 30 && item.dg <= 150){
+
+                        var v_sin = Math.sin(item.dg / 180 * PI);
+                        var v_cos = Math.cos(item.dg / 180 * PI);
+
+                        var rotate_deg = Math.atan(Math.tan((90 - item.dg) / 180 * PI) * rate) / PI * 180;
+
+                        $(item).css({
+                            transform: "translate(" + (o_point_x + axis_x * v_cos) + "rem," + (o_point_y - axis_y * v_sin) + "rem) scale(" + (1 - Math.abs(item.dg - 90) / 100) + ")"
+                        }).children().css({
+                            transform: "rotate(" + rotate_deg + "deg)"
+                        })
+                    }else{
+                        dx = (item.dg - 150) * PI / 180 * axis_x / 2;
+                        $(item).css({
+                            transform: "translate(" + (o_point_x + lp.x - dx) + "rem," + (o_point_y - lp.y - dx * k) + "rem) scale(" + (1 - Math.abs(item.dg - 90) / 100) + ")"
+                        }).children().css({
+                            transform: "rotate(" + l_rotate_deg +"deg)"
+                        })
+                    }
+                }
+                if(selected_index != -1){
+                    var selected_item_dg = items[selected_index].dg;
+                    if(selected_item_dg >= min_dg && selected_item_dg <= 180 - min_dg){
+                        pointer.css("transform", "rotate(" + (91 - selected_item_dg) + "deg)");
+                    }
+                }
+            }
+
+            //改变 item 自变量 dg
+            function changeDeg(deg){
+                for(var i = 0; i < items.length; i++){
+                    items[i].dg += deg;
+                }
+            }
+
+            isun.drag_measure(plateBlock[0], function(d){
+                if(interval){
+                    clearInterval(interval);
+                }
+                changeDeg(-d[0] / 6.3 * 750 / window.innerWidth);
+                refresh();
+            }, function(last_d){
+                if(last_d){
+                    var dx = last_d[0];
+                    if(!dx){
+                        return;
+                    }
+                    var scale = window.innerWidth / 750;
+                    var dx_flag = Math.abs(dx) / dx;
+                    interval = setInterval(function(){
+                        changeDeg(-dx / 6.3 / scale);
+                        refresh();
+                        dx += -dx_flag * scale;
+                        if(dx_flag > 0 && dx <= 0 || dx_flag < 0 && dx >= 0){
+                            clearInterval(interval);
+                            var i_len = items.length;
+                            for(var i = 0; i < i_len; i++){
+                                var item = items[i];
+                                if(Math.abs(item.dg - 90) <= 12){
+                                    bao_bei_choose(~~item.getAttribute("data-index"));
+                                }
+                            }
+                        }
+                    }, 10);
+                }
+            });
+
+            items.find("*").on("click",function(){
+                bao_bei_choose(Number(this.parentNode.getAttribute("data-index")));
+            });
+
+            plateBlock.find(".cover_pad").each(function(){
+                this.addEventListener("touchstart", function(e){
+                    e.stopPropagation();
+                });
+                this.addEventListener("touchmove", function(e){
+                    e.stopPropagation();
+                });
+                this.addEventListener("touchend", function(e){
+                    e.stopPropagation();
+                });
+            });
+
+            //滑动一定的角度
+            !function(){
+                plateBlock[0]._slide = function(deg){
+                    if(interval){
+                        clearInterval(interval);
+                        interval = null;
+                    }
+                    if(!deg){
+                        return;
+                    }
+                    var deg_flag = deg / Math.abs(deg);
+                    var a_deg = 150;
+                    var speed = Math.sqrt(Math.abs(2 * deg * a_deg)) * deg_flag;
+                    interval = setInterval(function(){
+                        if(deg_flag > 0 && deg <= 0 || deg_flag < 0 && deg >= 0){
+                            clearInterval(interval);
+                            changeDeg(deg);
+                            return;
+                        }
+                        changeDeg(speed / 100);
+                        refresh();
+                        deg -= speed / 100;
+                        speed -= a_deg / 100 * deg_flag;
+                    }, 10);
+                };
+            }();
+        }();
+    </script>
+</body>
+</html>

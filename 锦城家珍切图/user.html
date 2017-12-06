@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>个人中心</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="resource/css/_.css" />
+    <link rel="stylesheet" href="resource/css/user.css" />
+    <script src="resource/js/jquery.js" ></script>
+    <script src="resource/js/config.js" ></script>
+</head>
+<body>
+<div id="main">
+    <div id="head">
+        <div class="r1">
+            <i class="icon back _back"></i>
+        </div>
+        <div class="r2">
+            <img class="head" />
+            <p class="login_link"><a href="">登录</a>/<a href="">注册</a></p>
+            <img class="line" src="resource/img/user/line.png"/>
+            <!--未登录时显示的铃铛-->
+            <!--<i class="icon bell"></i>-->
+            <!--登录后显示的铃铛-->
+            <i class="icon bell2" onclick="openPage(3);">
+                <!--铃铛旁边的红点-->
+                <span class="dot"></span>
+            </i>
+        </div>
+        <div class="r3">
+            <p class="item">
+                <i class="icon folder"></i>
+                <span class="text">用户资料</span>
+            </p>
+            <p class="item">
+                <i class="icon eye"></i>
+                <span class="text">我的晒宝</span>
+            </p>
+            <p class="item" onclick="openPage(1);">
+                <i class="icon box"></i>
+                <span class="text">客服中心</span>
+            </p>
+        </div>
+    </div>
+
+    <div id="middle">
+        <!--0-->
+        <div class="block user show">
+            <p class="item">
+                <i class="icon msg"></i>
+                <span class="text">我的评论</span>
+                <b class="arrow"></b>
+            </p>
+            <p class="item">
+                <i class="icon bulb"></i>
+                <span class="text">我的收藏</span>
+                <b class="arrow"></b>
+            </p>
+            <p class="item" onclick="openPage(3);">
+                <i class="icon clock"></i>
+                <span class="text">鉴宝消息</span>
+                <b class="arrow"></b>
+            </p>
+            <p class="item">
+                <i class="icon note3"></i>
+                <span class="text">我的心得</span>
+                <b class="arrow"></b>
+            </p>
+            <p class="item" onclick="openPage(4);">
+                <i class="icon setting"></i>
+                <span class="text">设置</span>
+                <b class="arrow"></b>
+            </p>
+            <!--退出登录按钮-->
+            <span class="_btn loginout" onclick="location.href = ''">退出登录</span>
+        </div>
+        <!--1-->
+        <div class="block service_center">
+            <p class="item">
+                <i class="icon note3"></i>
+                <span class="text">意见与反馈</span>
+                <b class="arrow"></b>
+            </p>
+            <p class="item" onclick="openPage(2);">
+                <i class="icon qmark"></i>
+                <span class="text">常见问题</span>
+                <b class="arrow"></b>
+            </p>
+            <p class="item">
+                <i class="icon telephonist2"></i>
+                <span class="text">联系客服</span>
+                <b class="arrow"></b>
+            </p>
+        </div>
+        <!--2-->
+        <div class="block common_question">
+            <p class="item">
+                <span class="text">怎么进行评价</span>
+                <b class="arrow"></b>
+            </p>
+        </div>
+        <!--3-->
+        <div class="block msg">
+            <!--------------------------------------------------------------------->
+            <p class="item">
+                <img class="head_img" src="resource/img/user/user_head.png"/>
+                <span class="text">啊啊啊啊啊啊啊啊啊啊啊啊啊</span>
+                <b class="arrow"></b>
+            </p>
+            <p class="item">
+                <img class="head_img" src="resource/img/user/user_head.png"/>
+                <span class="text">啊啊啊啊啊啊啊啊啊啊啊啊啊</span>
+                <b class="arrow"></b>
+            </p>
+            <p class="item">
+                <img class="head_img" src="resource/img/user/user_head.png"/>
+                <span class="text">啊啊啊啊啊啊啊啊啊啊啊啊啊</span>
+                <b class="arrow"></b>
+            </p>
+            <!--------------------------------------------------------------------->
+        </div>
+        <!--4-->
+        <div class="block setting">
+            <p class="item">
+                <span class="text">修改密码</span>
+                <b class="arrow"></b>
+            </p>
+            <p class="item">
+                <span class="text">清除缓存</span>
+                <b class="arrow"></b>
+            </p>
+            <p class="item">
+                <span class="text">关于我们</span>
+                <b class="arrow"></b>
+            </p>
+            <p class="item">
+                <span class="text">免责声明</span>
+                <b class="arrow"></b>
+            </p>
+        </div>
+        <!--5-->
+        <div class="block user_def">
+            <p class="item">
+                <span class="text">自定义条目</span>
+                <b class="arrow"></b>
+            </p>
+        </div>
+    </div>
+
+    <div id="foot" class="_footnav">
+        <div class="item">
+            <i class="icon home2" ></i>
+            <p>首页</p>
+        </div>
+        <div class="item">
+            <i class="icon figure4" ></i>
+            <p>掌掌眼</p>
+        </div>
+        <div class="item camera">
+            <i class="icon camera2" ></i>
+        </div>
+        <div class="item" onclick="openPage(0);">
+            <i class="icon figure3" ></i>
+            <p>我</p>
+        </div>
+        <div class="item">
+            <i class="icon more2" ></i>
+            <p>更多</p>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    /**
+     * 打开一个列表页
+     * @param p 可以是一个数字，代表打已经存在的一个列表页的序号
+     *          也可以是一个object数组，每个object定义一个条目包含的信息，条目在自定义页面呈现
+     *          object格式
+     *          {text: 内容, imgUrl: 头像图片链接, url: 点击条目所要转向的链接}
+     */
+    var openPage;
+    !function(){
+        var pages = $("#middle .block");
+        openPage = function(p){
+            var user_def_page = $(pages[pages.length - 1]);
+            if(typeof(p) == "number"){
+                $(pages.removeClass("show")[p]).addClass("show");
+            }else if(p.constructor ==  Array){
+                user_def_page.html("");
+                for(var i = 0; i < p.length; i++){
+                    !function(){
+                        var param = p[i];
+                        var item = $(
+                                '<p class="item">' +
+                                '<img class="head_img"/>' +
+                                '<span class="text"></span>' +
+                                '<b class="arrow"></b>' +
+                                '</p>');
+                        item.find(".head_img").attr("src", param.imgUrl).siblings(".text").html(param.text);
+
+                        user_def_page.append(item);
+                        pages.removeClass("show");
+                        user_def_page.addClass("show");
+
+                        if(param.url){
+                            item[0].onclick = function(){
+                                location.href = param.url;
+                            };
+                        }
+                    }();
+                }
+            }
+        };
+    }();
+
+
+    //测试代码
+//    setTimeout(function(){
+//        openPage([
+//            {
+//                text: "啊的发家史的浪费空间",
+//                imgUrl: "resource/img/logo_no_title.png",
+//                url: "http://www.baidu.com"
+//            },
+//            {
+//                text: "阿萨德离开家flak大煞风景",
+//                imgUrl: "resource/img/logo_no_title.png",
+//                url: "http://www.baidu.com"
+//            },
+//            {
+//                text: "阿娇flak三等奖flak三等奖flask的减肥",
+//                imgUrl: "resource/img/logo_no_title.png",
+//                url: "http://www.baidu.com"
+//            }
+//        ])
+//    }, 1000);
+</script>
+</body>
+</html>
