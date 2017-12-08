@@ -21,8 +21,6 @@
     <p>内容：{{content}}</p>
 </div>
 
-
-
 <script>
     $("#fill").i_fill({
         title: "名单",
@@ -33,13 +31,10 @@
         depart: "IT农业部"
     });
 
-    (function(){
-        var data = {
-            title: "双向绑定",
-            content: "基于jquery小模块开发"
-        };
-        $("#bind").i_bind(data);
-    })();
+    $("#bind").i_bind({
+        title: "双向绑定",
+        content: "基于jquery小模块开发"
+    });
 </script>
 
 </body>
