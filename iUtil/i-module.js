@@ -4,19 +4,6 @@
 
 (function(){
 
-    if(!String.prototype.trim){
-        String.prototype.trim = function(){
-            return this.replace(/^\s+/, "").replace(/\s+$/, "");
-        };
-    }
-    if(Object.create){
-        Object.create = function(obj){
-            var res = {};
-            res.__proto__ = obj;
-            return res;
-        };
-    }
-
     $.fn.i_fill = function(data){
         if(data){
             this.filter("*[i-for]").add(this.find("*[i-for]")).each(function(){
@@ -86,7 +73,10 @@
         return this;
     };
 
+    if(Object.defineProperty)
     $.fn.i_bind = function(data){
+        if(!data) return;
+
         var jcol = this;    //jquery collection
 
         var refreshTree = {};           //{pathNode: ..., __$i_nodes__: [{node, paths, template}]}
@@ -125,7 +115,6 @@
 
             $(attributes).each(function(){
                 var str = this.value;
-                // var node = this;
                 var paths = [];
                 var index = 0;
                 var template = str.replace(reg_var, function(match, pathStr){
@@ -159,50 +148,58 @@
         })();
 
         var refer;  //参照，以检查脏值
-        if(data){
-            refer = deepCopy(data);
-            (function(obj, path){
-                var f = arguments.callee;
-                Object.keys(obj).forEach(function(key){
-                    (function(key){
-                        var value = obj[key];
-                        Object.defineProperty(obj, key, {
-                            enumerable: true,
-                            configurable: true,
-                            get: function(){
-                                return value;
-                            },
-                            set: function(v){
-                                value = v;
-                                if(v instanceof Object){
+        refer = deepCopy(data);
+        (function(obj, path){
+            var f = arguments.callee;
+            Object.keys(obj).forEach(function(key){
+                (function(key){
+                    var value = obj[key];
+                    Object.defineProperty(obj, key, {
+                        enumerable: true,
+                        configurable: true,
+                        get: function(){
+                            return value;
+                        },
+                        set: function(v){
+                            value = v;
+                            if(v instanceof Object){
+                                var _path = path.slice();
+                                _path.push(key);
+                                f(v, _path);
+                            }
+                            //脏值检查，刷新涉及的节点
+                            try{
+                                var oldValue = refer;
+                                for(var i = 0; i < path.length; i++){
+                                    oldValue = oldValue[path[i]];
+                                }
+                                var oldObj = oldValue;
+                                oldValue = oldValue[key];
+                                if(oldValue !== v){
+                                    //执行刷新
                                     var _path = path.slice();
                                     _path.push(key);
-                                    f(v, _path);
+                                    refresh(refreshTree, data, _path);
+                                    oldObj[key] = v;
                                 }
-                                //脏值检查，刷新涉及的节点
-                                try{
-                                    var oldValue = refer;
-                                    for(var i = 0; i < path.length; i++){
-                                        oldValue = oldValue[path[i]];
-                                    }
-                                    var oldObj = oldValue;
-                                    oldValue = oldValue[key];
-                                    if(oldValue !== v){
-                                        //执行刷新
-                                        var _path = path.slice();
-                                        _path.push(key);
-                                        refresh(refreshTree, data, _path);
-                                        oldObj[key] = v;
-                                    }
-                                }catch(e){ }
-                            }
-                        });
-                    })(key);
+                            }catch(e){ }
+                        }
+                    });
+                })(key);
+            });
+        })(data, []);
+        refresh(refreshTree, data, []);
+
+        this.filter("*[i-model]").add(this.find("*[i-model]")).each(function(){
+            if(this.value !== undefined){
+                var exp = this.getAttribute("i-model");
+                $(this).on("input", function(){
+                    editProp(data, exp, this.value);
                 });
-            })(data, []);
-            refresh(refreshTree, data, []);
-        }
+            }
+        });
     };
+
 
     $.fn.findText = function(){
         var collection = [];
@@ -230,6 +227,14 @@
     };
 
 
+    /**
+     * @param context 变量上下文
+     * @param exp
+     */
+    function exp_parse(context, exp){
+        //TODO
+    }
+
     function accessProp(obj, exp){
         exp = exp.trim().split(".");
         var temp = obj;
@@ -237,6 +242,15 @@
             temp = temp[exp[i]];
         }
         return temp;
+    }
+
+    function editProp(obj, exp, value){
+        exp = exp.trim().split(".");
+        var temp = obj;
+        for(var i = 0; i < exp.length - 1; i++){
+            temp = temp[exp[i]];
+        }
+        temp[exp[i]] = value;
     }
 
     function deepCopy(obj){
@@ -269,7 +283,6 @@
                 var _this = this;
                 var node = this.node;
                 var vkey = ({2: "value", 3: "data"})[node.nodeType];
-                // node[vkey] = textValue ;
                 node[vkey] = this.template.replace(/{(\d+)}/g, function(match, index){
                     var path = _this.paths[index];
                     var value = data;
@@ -300,6 +313,16 @@
                 }
             }
         }
+    };
+    if(!String.prototype.trim)
+    String.prototype.trim = function(){
+        return this.replace(/^\s+/, "").replace(/\s+$/, "");
+    };
+    if(Object.create)
+    Object.create = function(obj){
+        var res = {};
+        res.__proto__ = obj;
+        return res;
     };
 })();
 

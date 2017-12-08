@@ -14,8 +14,9 @@
 </div>
 
 <hr/>
-<input placeholder="在此输入内容"/>
+
 <div id="bind">
+    <input placeholder="在此输入内容" i-model="content"/>
     <p>标题：{{title}}</p>
     <p>内容：{{content}}</p>
 </div>
@@ -34,13 +35,13 @@
 
     (function(){
         var data = {
-            title: "单向绑定",
+            title: "双向绑定",
             content: "基于jquery小模块开发"
         };
         $("#bind").i_bind(data);
-        $("input").on("input", function(){
-            data.content = this.value;
-        });
+//        $("input").on("input", function(){
+//            data.content = this.value;
+//        });
     })();
 </script>
 
