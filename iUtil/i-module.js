@@ -4,11 +4,91 @@
 
 (function(){
 
+    if(!String.prototype.trim){
+        String.prototype.trim = function(){
+            return this.replace(/^\s+/, "").replace(/\s+$/, "");
+        };
+    }
+    if(Object.create){
+        Object.create = function(obj){
+            var res = {};
+            res.__proto__ = obj;
+            return res;
+        };
+    }
+
+
     $.fn.i_fill = function(data){
-        if(data)
+        if(data){
+            this.filter("*[i-for]").add(this.find("*[i-for]")).each(function(){
+                var exp = this.getAttribute("i-for");
+                var temp;
+                var var_exp, path_exp;
+                temp = exp.split(" in ");
+                var_exp = temp[0];
+                path_exp = temp[1];
+                if(!path_exp)
+                    throw new Error("i-for expression parse error");
+                var for_data = Object.create(data);
+                var item_key, index_key;
+                temp = var_exp.replace(/^\s*\(?([^()]*)\)?\s*$/, function(){
+                    return arguments[1];
+                }).split(",");
+                item_key = temp[0];
+                index_key = temp[1];
+                if(!item_key)
+                    throw new Error("i-for expression parse error");
+                if(!index_key)
+                    index_key = "$index";
+                item_key = item_key.trim();
+                index_key = index_key.trim();
+
+                var collection;
+                try{
+                    // var path = path_exp.split(".");
+                    // collection = data;
+                    // for(var i = 0; i < path.length; i++){
+                    //     collection = collection[path[i]];
+                    // }
+                    collection = accessProp(data, path_exp);
+                }catch(e){
+                    console.error(e);
+                    return;
+                }
+                if(collection.length > 0){
+                    var template = this.outerHTML;
+                    var res = "";
+                    for(var i = 0; i < collection.length; i++){
+                        for_data[item_key] = collection[i];
+                        for_data[index_key] = i + 1;
+                        res += template.replace(/{{(.+?)}}/g, function(match, va){
+                            return String(accessProp(for_data, va));
+                        });
+                    }
+                    if(res){
+                        this.insertAdjacentHTML("afterend", res);
+                        $(this).remove();
+                    }
+                }
+            });
             this.each(function(){
-                this.outerHTML = this.outerHTML.replace(/{{(.+)}}/g, function(match, va){
-                    va = va.replace(/^\s+/, "").replace(/\s+$/, ""); //去首尾空白
+                // this.outerHTML = this.outerHTML.replace(/<(.+).* i-for=(["'])(.+)(\2) .*>(.*<\/(\1)>)?/g, function(){
+                //     var match = arguments[0];
+                //     var exp = arguments[3];
+                //     var temp;
+                //     var var_exp, path_exp;
+                //     temp =exp.split("in");
+                //     var_exp = temp[0];
+                //     path_exp = temp[1];
+                //     var for_var = {};
+                //     var item_key, index_key;
+                //     temp = var_exp.replace(/^\s*[(]?(.*)[)]?\s*$/, function(){
+                //         return arguments[1];
+                //     });
+                //
+                // }).replace(/{{(.+)}}/g, function(match, va){
+                this.outerHTML = this.outerHTML.replace(/{{(.+?)}}/g, function(match, va){
+                    va = va.trim();
                     try{
                         if(!va) throw 1;
                         va = va.split(".");
@@ -23,6 +103,7 @@
                     }
                 });
             });
+        }
         return this;
     };
 
@@ -195,6 +276,15 @@
         return $(collection);
     };
 
+
+    function accessProp(obj, exp){
+        exp = exp.trim().split(".");
+        var temp = obj;
+        for(var i = 0; i < exp.length; i++){
+            temp = temp[exp[i]];
+        }
+        return temp;
+    }
 
     function deepCopy(obj){
         if(obj instanceof Object){

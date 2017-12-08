@@ -3,9 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
-
+    <script src="jquery.js"></script>
+    <script src="../i-module.js"></script>
 </head>
 <body>
+
+<div id="fill">
+    <p style="color: {{color}}">{{title}}</p>
+    <p i-for="(item,index) in men.arr">{{index}}.{{item}} - {{depart}}</p>
+</div>
+
+<hr/>
+<input placeholder="在此输入内容"/>
+<div id="bind">
+    <p>标题：{{title}}</p>
+    <p>内容：{{content}}</p>
+</div>
+
+
+
+<script>
+    $("#fill").i_fill({
+        title: "名单",
+        men:{
+            arr: ["zhang", "wang", "qian", "li"]
+        },
+        color: "blue",
+        depart: "IT农业部"
+    });
+
+    (function(){
+        var data = {
+            title: "单向绑定",
+            content: "基于jquery小模块开发"
+        };
+        $("#bind").i_bind(data);
+        $("input").on("input", function(){
+            data.content = this.value;
+        });
+    })();
+</script>
 
 </body>
 </html>

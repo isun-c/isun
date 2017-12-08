@@ -10,7 +10,6 @@
     root.style["font-size"] = root.offsetWidth / 750 * 100 + "px";
     window.addEventListener("resize", function(){
         root.style["font-size"] = root.offsetWidth / 750.* 100 + "px";
-		console.log(root.offsetWidth);
     });
 }();
 window.addEventListener("load", function(){
