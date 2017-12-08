@@ -17,7 +17,6 @@
         };
     }
 
-
     $.fn.i_fill = function(data){
         if(data){
             this.filter("*[i-for]").add(this.find("*[i-for]")).each(function(){
@@ -45,11 +44,6 @@
 
                 var collection;
                 try{
-                    // var path = path_exp.split(".");
-                    // collection = data;
-                    // for(var i = 0; i < path.length; i++){
-                    //     collection = collection[path[i]];
-                    // }
                     collection = accessProp(data, path_exp);
                 }catch(e){
                     console.error(e);
@@ -72,21 +66,6 @@
                 }
             });
             this.each(function(){
-                // this.outerHTML = this.outerHTML.replace(/<(.+).* i-for=(["'])(.+)(\2) .*>(.*<\/(\1)>)?/g, function(){
-                //     var match = arguments[0];
-                //     var exp = arguments[3];
-                //     var temp;
-                //     var var_exp, path_exp;
-                //     temp =exp.split("in");
-                //     var_exp = temp[0];
-                //     path_exp = temp[1];
-                //     var for_var = {};
-                //     var item_key, index_key;
-                //     temp = var_exp.replace(/^\s*[(]?(.*)[)]?\s*$/, function(){
-                //         return arguments[1];
-                //     });
-                //
-                // }).replace(/{{(.+)}}/g, function(match, va){
                 this.outerHTML = this.outerHTML.replace(/{{(.+?)}}/g, function(match, va){
                     va = va.trim();
                     try{
@@ -160,17 +139,9 @@
                 paths.forEach(function(path){
                     refreshTree.add(path, nodeObj);
                 });
-
-                // if(reg_var.test(this.value)){
-                //     var pathStr = this.value.replace(reg_ps, "").replace(reg_fs, "");
-                //     var path = pathStr.split(".");
-                //     // refreshTree.add(path, {node: this, path: path});
-                //     refreshTree.add(path, this);
-                // }
             });
             jcol.findText().each(function(){
                 var str = this.data;
-                // var node = this;
                 var paths = [];
                 var index = 0;
                 var template = str.replace(reg_var, function(match, pathStr){
@@ -178,20 +149,12 @@
                     if(pathStr){
                         paths.push(pathStr.split("."))
                     }
-                    // var path = pathStr.split(".");
-                    // refreshTree.add(path, node);
                     return "{" + index++ + "}";
                 });
                 var nodeObj = {node: this, paths: paths, template: template};
                 paths.forEach(function(path){
                     refreshTree.add(path, nodeObj);
                 });
-                // if(reg_var.test(this.data)){
-                //     var pathStr = this.data.replace(reg_ps, "").replace(reg_fs, "");
-                //     var path = pathStr.split(".");
-                //     // refreshTree.add(path, {node: this, path: path});
-                //     refreshTree.add(path, this);
-                // }
             });
         })();
 
@@ -237,17 +200,7 @@
                     })(key);
                 });
             })(data, []);
-
             refresh(refreshTree, data, []);
-
-            // this.add().each(function(){
-            //     var $i_data = {}; //将附加到元素上的数据
-            //     //提取特征
-            //
-            //
-            //
-            //     //根据特征填充数据
-            // });
         }
     };
 
@@ -312,19 +265,12 @@
             });
             if(!nodeObj) return;
 
-            // var value = data;
-            // $(path).each(function(){
-            //     value = data[this];
-            // });
-            //T/ODO if value is a function
-
-            // var textValue = String(value);
             $(nodeObj.__$i_nodes__).each(function(){
                 var _this = this;
                 var node = this.node;
                 var vkey = ({2: "value", 3: "data"})[node.nodeType];
                 // node[vkey] = textValue ;
-                node[vkey] = this.template.replace(/{(\d)}/g, function(match, index){
+                node[vkey] = this.template.replace(/{(\d+)}/g, function(match, index){
                     var path = _this.paths[index];
                     var value = data;
                     try{
@@ -335,10 +281,6 @@
                     return String(value);
                 });
             });
-
-            // $(Object.keys(nodeObj)).each(function(){
-            //     refresh(nodeObj, value, [this]);
-            // });
 
             $(Object.keys(nodeObj)).each(function(){
                 refresh(nodeObj, data, [this]);
