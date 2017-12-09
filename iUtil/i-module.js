@@ -54,7 +54,7 @@
                     var res = "";
                     for(var i = 0; i < collection.length; i++){
                         for_data[item_key] = collection[i];
-                        for_data[index_key] = i + 1;
+                        for_data[index_key] = i;
                         var child_for_col = $(this).find("*[i-for]");
                         if(child_for_col.length){
                             var templateNode = $(this.cloneNode(true));
@@ -64,7 +64,12 @@
                             template = templateNode[0].outerHTML;
                         }
                         res += template.replace(/{{(.+?)}}/g, function(match, va){
-                            return String(accessProp(for_data, va));
+                            try{
+                                return String(accessProp(for_data, va));
+                            }catch(e){
+                                console.error(e);
+                                return match;
+                            }
                         });
                     }
                     if(res){
@@ -218,12 +223,13 @@
 
         this.filter("*[i-model]").add(this.find("*[i-model]")).each(function(){
             if(this.value !== undefined){
-                var path = this.getAttribute("i-model").trim().split(".");
+                var exp = this.getAttribute("i-model");
+                var path = exp.trim().split(".");
                 $(this).on("input", function(){
-                    editProp(data, path, this.value);
+                    editProp(data, exp, this.value);
                 });
                 this.setAttribute("value", this.value);
-                var nodeObj = {node: this.getAttributeNode("value"), paths:[path], template: "{0}"};
+                var nodeObj = {node: this.getAttributeNode("value"), paths: [path], template: "{0}"};
                 refreshTree.add(path, nodeObj);
             }
         });
@@ -255,32 +261,27 @@
     };
 
 
-    /**
-     * 解析表达式
-     * @param context 变量上下文
-     * @param exp
-     */
-    function exp_parse(context, exp){
-        //TODO
-    }
+    // /**
+    //  * 解析表达式
+    //  * @param context 变量上下文
+    //  * @param exp
+    //  */
+    // function exp_parse(context, exp){
+    //     //T/ODO
+    // }
 
     function accessProp(obj, exp){
-        var path = exp instanceof Array ? exp : exp.trim().split(".");
-        var temp = obj;
-        for(var i = 0; i < path.length; i++){
-            temp = temp[path[i]];
+        var temp;
+        with(obj){
+            temp = eval(exp);
         }
         return temp;
     }
 
     function editProp(obj, exp, value){
-        var path = exp instanceof Array ? exp : exp.trim().split(".");
-        var temp = obj;
-        for(var i = 0; i < path.length - 1; i++){
-            temp = temp[path[i]];
+        with(obj){
+            eval(exp + "=value");
         }
-        temp[path[i]] = value;
-        return path;
     }
 
     function deepCopy(obj){
