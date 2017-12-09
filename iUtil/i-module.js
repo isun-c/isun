@@ -5,9 +5,22 @@
 (function(){
 
     $.fn.i_fill = function(data){
-        if(data){
-            this.filter("*[i-for]").add(this.find("*[i-for]")).each(function(){
+        if(!data) return;
+        var jcol = this;
+        jcol.filter("*[i-if]").add(jcol.find("*[i-if]")).each(function(){
+            var exp = this.getAttribute("i-if");
+            if(!accessProp(data, exp)){
+                $(this).remove();
+            }
+        });
+
+        var for_col = jcol.filter("*[i-for]").add(jcol.find("*[i-for]"));
+        for_col = for_col.not(for_col.find("*[i-for]"));
+        (function(data, for_col){
+            var handler = arguments.callee;
+            for_col.each(function(){
                 var exp = this.getAttribute("i-for");
+                this.removeAttribute("i-for");
                 var temp;
                 var var_exp, path_exp;
                 temp = exp.split(" in ");
@@ -42,6 +55,14 @@
                     for(var i = 0; i < collection.length; i++){
                         for_data[item_key] = collection[i];
                         for_data[index_key] = i + 1;
+                        var child_for_col = $(this).find("*[i-for]");
+                        if(child_for_col.length){
+                            var templateNode = $(this.cloneNode(true));
+                            child_for_col = templateNode.find("*[i-for]");
+                            child_for_col = child_for_col.not(child_for_col.find("*[i-for]"));
+                            handler(for_data, child_for_col);
+                            template = templateNode[0].outerHTML;
+                        }
                         res += template.replace(/{{(.+?)}}/g, function(match, va){
                             return String(accessProp(for_data, va));
                         });
@@ -52,24 +73,25 @@
                     }
                 }
             });
-            this.each(function(){
-                this.outerHTML = this.outerHTML.replace(/{{(.+?)}}/g, function(match, va){
-                    va = va.trim();
-                    try{
-                        if(!va) throw 1;
-                        va = va.split(".");
-                        var temp = data;
-                        for(var i = 0; i < va.length; i++){
-                            temp = temp[va[i]];
-                        }
-                        return String(temp);
-                    }catch(e){
-                        console.error(e);
-                        return match;
+        })(data, for_col);
+
+        jcol.each(function(){
+            this.outerHTML = this.outerHTML.replace(/{{(.+?)}}/g, function(match, va){
+                va = va.trim();
+                try{
+                    if(!va) throw 1;
+                    va = va.split(".");
+                    var temp = data;
+                    for(var i = 0; i < va.length; i++){
+                        temp = temp[va[i]];
                     }
-                });
+                    return String(temp);
+                }catch(e){
+                    console.error(e);
+                    return match;
+                }
             });
-        }
+        });
         return this;
     };
 
@@ -106,19 +128,23 @@
                 }
             }
         });
+
+        // this.filter("*[i-for]").add(this.find("*[i-for]")).each(function(){
+        //
+        // });
+
         (function(){
-            var reg_var = /{{(.+?)}}/g, reg_ps = /^\s+/, reg_fs = /\s+$/;
+            var reg_var = /{{(.+?)}}/g;
             var attributes = [];
             jcol.add(jcol.find("*")).each(function(){
                 attributes.append(this.attributes);
             });
-
             $(attributes).each(function(){
                 var str = this.value;
                 var paths = [];
                 var index = 0;
                 var template = str.replace(reg_var, function(match, pathStr){
-                    pathStr = pathStr.replace(reg_ps, "").replace(reg_fs, "");
+                    pathStr = pathStr.trim();
                     if(pathStr){
                         paths.push(pathStr.split("."));
                     }
@@ -134,9 +160,9 @@
                 var paths = [];
                 var index = 0;
                 var template = str.replace(reg_var, function(match, pathStr){
-                    pathStr = pathStr.replace(reg_ps, "").replace(reg_fs, "");
+                    pathStr = pathStr.trim();
                     if(pathStr){
-                        paths.push(pathStr.split("."))
+                        paths.push(pathStr.split("."));
                     }
                     return "{" + index++ + "}";
                 });
@@ -192,14 +218,16 @@
 
         this.filter("*[i-model]").add(this.find("*[i-model]")).each(function(){
             if(this.value !== undefined){
-                var exp = this.getAttribute("i-model");
+                var path = this.getAttribute("i-model").trim().split(".");
                 $(this).on("input", function(){
-                    editProp(data, exp, this.value);
+                    editProp(data, path, this.value);
                 });
+                this.setAttribute("value", this.value);
+                var nodeObj = {node: this.getAttributeNode("value"), paths:[path], template: "{0}"};
+                refreshTree.add(path, nodeObj);
             }
         });
     };
-
 
     $.fn.findText = function(){
         var collection = [];
@@ -228,6 +256,7 @@
 
 
     /**
+     * 解析表达式
      * @param context 变量上下文
      * @param exp
      */
@@ -236,21 +265,22 @@
     }
 
     function accessProp(obj, exp){
-        exp = exp.trim().split(".");
+        var path = exp instanceof Array ? exp : exp.trim().split(".");
         var temp = obj;
-        for(var i = 0; i < exp.length; i++){
-            temp = temp[exp[i]];
+        for(var i = 0; i < path.length; i++){
+            temp = temp[path[i]];
         }
         return temp;
     }
 
     function editProp(obj, exp, value){
-        exp = exp.trim().split(".");
+        var path = exp instanceof Array ? exp : exp.trim().split(".");
         var temp = obj;
-        for(var i = 0; i < exp.length - 1; i++){
-            temp = temp[exp[i]];
+        for(var i = 0; i < path.length - 1; i++){
+            temp = temp[path[i]];
         }
-        temp[exp[i]] = value;
+        temp[path[i]] = value;
+        return path;
     }
 
     function deepCopy(obj){
@@ -293,6 +323,8 @@
                     }catch(e){}
                     return String(value);
                 });
+                if(node.nodeName === "value")
+                    node.ownerElement.value = node[vkey];
             });
 
             $(Object.keys(nodeObj)).each(function(){
