@@ -11,12 +11,20 @@
 <div id="fill">
     <p style="color: {{color}}">{{title}}</p>
     <p i-for="(item,index) in men.arr">{{index}}.{{item}} - {{depart}}</p>
+    <div>嵌套for循环</div>
+    <ol>
+        <li i-for="(item, index) in districts">
+            <div>{{item.name}}</div>
+            <span i-for="mark in item.marks">{{mark}} </span>
+        </li>
+    </ol>
 </div>
 
 <hr/>
 
 <div id="bind">
-    <input placeholder="在此输入内容" i-model="content"/>
+    <input placeholder="在此输入内容" i-model="content" />
+    <input placeholder="在此输入内容" i-model="content" />
     <p>标题：{{title}}</p>
     <p>内容：{{content}}</p>
 </div>
@@ -28,7 +36,12 @@
             arr: ["zhang", "wang", "qian", "li"]
         },
         color: "blue",
-        depart: "IT农业部"
+        depart: "IT农业部",
+        districts: [
+            { name: "锦江区", marks: [11, 33, 22]},
+            { name: "青羊区", marks: [22, 33, 11]},
+            { name: "成华区", marks: [33, 11, 22]}
+        ]
     });
 
     $("#bind").i_bind({
